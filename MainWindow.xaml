@@ -1,0 +1,83 @@
+﻿<Window x:Class="InvoiceHandler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InvoiceHandler"
+        mc:Ignorable="d"
+        FontFamily="/Assets/Fonts/#Roboto"
+        Title="InvoiceHandler"
+        Height="720" Width="1080"
+        MinHeight="650" MinWidth="1080"
+        ResizeMode="CanResize"
+        Background="#2a2b2e"
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="/Assets/styles.xaml"/>
+    </Window.Resources>
+
+    <!-- Main Layout -->
+    <Grid x:Name="layoutContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left menu -->
+        <Grid x:Name="leftMenu" Grid.Column="0" Background="#2b2c2e">
+            
+            <StackPanel Orientation="Vertical">
+                
+                <!-- Logo -->
+                <TextBlock Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25">
+                    <Run Foreground="#92B9BD" FontSize="24" Text="Invoice" FontStyle="Normal" FontWeight="Bold"/>
+                    <Run Foreground="#5A5A66" FontSize="24" Text="Handler" FontStyle="Normal" FontWeight="Bold"/>
+                </TextBlock>
+
+                <!-- dashboard -->
+                <ToggleButton x:Name="btnDash" Style="{StaticResource leftMenubtn}" Click="btnMenu_Click">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Width="24" Source="Assets/Icons/home.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <Label Content="Dashboard" Style="{StaticResource leftMenuLabel}"/>
+                        </StackPanel>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <!-- invoices -->
+                <ToggleButton x:Name="btnInvoices" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Width="24" Source="Assets/Icons/invoices.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <Label Content="Invoices" Style="{StaticResource leftMenuLabel}"/>
+                        </StackPanel>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <!-- customers -->
+                <ToggleButton x:Name="btnCustomers" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Width="24" Source="Assets/Icons/customers.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <Label Content="Customers" Style="{StaticResource leftMenuLabel}"/>
+                        </StackPanel>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <!-- products -->
+                <ToggleButton x:Name="btnProducts" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="24" Width="24" Source="Assets/Icons/products.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <Label Content="Products" Style="{StaticResource leftMenuLabel}"/>
+                        </StackPanel>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </StackPanel>
+        </Grid>
+
+        <ContentControl x:Name="mainContent" Grid.Column="1">
+            <!-- tähän rendaa valittu sivu, default = dashboard -->
+        </ContentControl>
+    </Grid>
+</Window>
