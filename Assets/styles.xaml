@@ -16,13 +16,11 @@
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
-                
             </Setter.Value>
-            
         </Setter>
 
         <Style.Triggers>
-
+            
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#52545c"/>
                 <Setter Property="Foreground" Value="Transparent"/>
@@ -34,6 +32,7 @@
                 <Setter Property="BorderBrush" Value="#92B9BD"/>
                 <Setter Property="Foreground" Value="Transparent"/>
             </Trigger>
+            
         </Style.Triggers>
     </Style>
 
@@ -45,5 +44,14 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="#92B9BD"/>
+    </Style>
+
+    <!-- dashboard stats label style -->
+    <Style x:Key="dashLabel" TargetType="Label">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/#Roboto"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 </ResourceDictionary>
