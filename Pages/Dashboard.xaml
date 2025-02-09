@@ -5,117 +5,166 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InvoiceHandler.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="830">
+             d:DesignHeight="720" d:DesignWidth="1500">
 
 
     <UserControl.Resources>
         <ResourceDictionary Source="/Assets/styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#2a2b2e" Offset="0.0"/>
-                <GradientStop Color="#52545c" Offset="1.0"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <Grid Background="LightGray">
 
         <!-- layout -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.75*" MinWidth="200" MaxWidth="500"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.9*" MinHeight="310"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MaxWidth="275"/>
+            <ColumnDefinition Width="Auto" MaxWidth="275"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <!-- Statistics -->
-            <Border Margin="15" BorderThickness="2" BorderBrush="White" CornerRadius="8" Padding="10,5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.7*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+        <!-- title -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Report - YTD 2025" FontSize="36" 
+            FontWeight="Bold" Foreground="Black" Margin="25,25,0,25" FontFamily="Arial Black"/>
 
-                    <!-- title -->
-                    <Label Content="Statistics:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="White"/>
+        <!-- total invoices -->
+        <Border Grid.Row="1" Grid.Column="0" Margin="15,5,5,5" 
+            CornerRadius="10" BorderThickness="2" BorderBrush="#88e788" 
+            Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                    <!-- Total Invoices -->
-                    <Border Padding="5" Grid.Row="1" BorderBrush="White" BorderThickness="1" CornerRadius="8" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Width="190" Content="Total invoices:" HorizontalAlignment="Left" Style="{StaticResource dashLabel}" Margin="8,0,0,0"/>
-                            <Label Content="--" Style="{StaticResource dashLabel}" Margin="0,0,24,0"/>
-                        </StackPanel>
-                    </Border>
-                    <!-- Total revenue -->
-                    <Border Padding="5" Grid.Row="2" BorderBrush="White" BorderThickness="1" CornerRadius="8" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Width="190" Grid.Row="2" Content="Total revenue:" HorizontalAlignment="Left" Style="{StaticResource dashLabel}" Margin="8,0,0,0"/>
-                            <Label Grid.Row="2" Content="--eur" HorizontalAlignment="Right" Style="{StaticResource dashLabel}" Margin="0,0,24,0"/>
-                        </StackPanel>
-                    </Border>
-                    <!-- Total customers -->
-                    <Border Padding="5" Grid.Row="3" BorderBrush="White" BorderThickness="1" CornerRadius="8" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Width="190" Grid.Row="3" Content="Total customers:" HorizontalAlignment="Left" Style="{StaticResource dashLabel}" Margin="8,0,0,0"/>
-                            <Label Grid.Row="3" Content="--" HorizontalAlignment="Right" Style="{StaticResource dashLabel}" Margin="0,0,24,0"/>
-                        </StackPanel>
-                    </Border>
-                    <!-- Total products -->
-                    <Border Padding="5" Grid.Row="4" BorderBrush="White" BorderThickness="1" CornerRadius="8" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Width="190" Grid.Row="4" Content="Total products:" HorizontalAlignment="Left" Style="{StaticResource dashLabel}" Margin="8,0,0,0"/>
-                            <Label Grid.Row="4" Content="--" HorizontalAlignment="Right" Style="{StaticResource dashLabel}" Margin="0,0,24,0"/>
-                        </StackPanel>
-                    </Border>
-                    <!-- Most selling product -->
-                    <Border Padding="5" Grid.Row="5" BorderBrush="White" BorderThickness="1" CornerRadius="8" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Width="190" Grid.Row="5" Content="Most selling product:" HorizontalAlignment="Left" Style="{StaticResource dashLabel}" Margin="8,0,0,0"/>
-                            <Label Grid.Row="5" Content="--" HorizontalAlignment="Right" Style="{StaticResource dashLabel}" Margin="0,0,24,0"/>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </Border>
+            <StackPanel>
+                <TextBlock Text="Total Invoices" FontSize="18" FontWeight="Bold" 
+                   Foreground="#333333" FontFamily="Arial Black" Margin="5,0,5,5"/>
 
-            <!-- Recent Invoices -->
-            <Border Margin="15" BorderThickness="2" BorderBrush="White" CornerRadius="8" Grid.Column="1" Padding="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.15*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                <TextBlock Text="--" FontSize="36" FontWeight="Bold" 
+                   Foreground="#333333" Margin="10,0,10,15"/>
 
-                    <!-- title -->
-                    <Label Content="Recent invoices:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="#92B9BD"/>
+                <Border BorderThickness="1" BorderBrush="#88e788" CornerRadius="8" 
+                    Background="#88e788" Width="Auto" Height="40" Margin="10,0,10,5">
 
-                    <!-- Recent invoices list -->
-                    <DataGrid x:Name="recInvoices" Grid.Row="1" Background="#52545c" AutoGenerateColumns="True">
-                        <!-- add data once availilable -->
-                    </DataGrid>
-                </Grid>
-            </Border>
+                    <Button x:Name="totalInvoices" Style="{StaticResource dashBtn}" Click="dash_Click">
+                        <Button.Content>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label Content="Go to invoices" Foreground="Black" FontSize="16" FontFamily="Arial Black"
+                                           Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="/Assets/Icons/arrow_forward_16px.png" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
 
-            <!-- Total revenue overtime graph -->
-            <Border Margin="15" BorderThickness="2" BorderBrush="White" CornerRadius="8" Padding="10" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.15*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+        <!-- total customers -->
+        <Border Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" 
+            CornerRadius="10" BorderThickness="2" BorderBrush="#88e788" 
+            Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                    <!-- title -->
-                    <Label Content="Yearly revenue trend:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="#92B9BD"/>
+            <StackPanel>
+                <TextBlock Text="Total Customers" FontSize="18" FontWeight="Bold" 
+                   Foreground="#333333" FontFamily="Arial Black" Margin="5,0,5,5"/>
 
-                </Grid>
-            </Border>
-        </Grid>
+                <TextBlock Text="--" FontSize="36" FontWeight="Bold" 
+                   Foreground="#333333" Margin="10,0,10,15"/>
+
+                <Border BorderThickness="1" BorderBrush="#88e788" CornerRadius="8" 
+                Background="#88e788" Width="Auto" Height="40" Margin="10,0,10,5">
+
+                    <Button x:Name="totalCustomers" Style="{StaticResource dashBtn}" Click="dash_Click">
+                        <Button.Content>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label Content="Go to customers" Foreground="Black" FontSize="16" FontFamily="Arial Black" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="/Assets/Icons/arrow_forward_16px.png" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- total revenue -->
+        <Border Grid.Row="2" Grid.Column="0" Margin="15,5,5,5" 
+            CornerRadius="10" BorderThickness="2" BorderBrush="#88e788" 
+            Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"> 
+
+            <StackPanel>
+                <TextBlock Text="Total Revenue" FontSize="18" FontWeight="Bold" 
+                    Foreground="#333333" FontFamily="Arial Black" Margin="5,0,5,5"/>
+
+                <TextBlock Text="--" FontSize="36" FontWeight="Bold" 
+                    Foreground="#333333" Margin="10,0,10,15"/>
+
+                <Border BorderThickness="1" BorderBrush="#88e788" CornerRadius="8" 
+                    Background="#88e788" Width="Auto" Height="40" Margin="10,0,10,5">
+
+                    <Button x:Name="totalRevenue" Style="{StaticResource dashBtn}" Click="dash_Click">
+                        <Button.Content>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label Content="Go to invoices" Foreground="Black" FontSize="16" FontFamily="Arial Black" 
+                                        Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="/Assets/Icons/arrow_forward_16px.png" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Products sold -->
+        <Border Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" 
+            CornerRadius="10" BorderThickness="2" BorderBrush="#88e788" 
+            Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"> 
+
+            <StackPanel>
+                <TextBlock Text="Products sold" FontSize="18" FontWeight="Bold" 
+                    Foreground="#333333" FontFamily="Arial Black" Margin="5,0,5,5"/>
+
+                <TextBlock Text="--" FontSize="36" FontWeight="Bold" 
+                    Foreground="#333333" Margin="10,0,10,15"/>
+
+                <Border BorderThickness="1" BorderBrush="#88e788" CornerRadius="8" 
+                    Background="#88e788" Width="Auto" Height="40" Margin="10,0,10,5">
+
+                    <Button x:Name="productsSold" Style="{StaticResource dashBtn}" Click="dash_Click">
+                        <Button.Content>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label Content="Go to products" Foreground="Black" FontSize="16" FontFamily="Arial Black" 
+                                        Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <Image Source="/Assets/Icons/arrow_forward_16px.png" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- revenue chart -->
+        <Border BorderThickness="2" Margin="5" BorderBrush="#88e788" CornerRadius="8" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Yearly revenue chart" FontSize="18" FontWeight="Bold" Foreground="#333333" 
+                           FontFamily="Arial Black" Margin="10" HorizontalAlignment="Center"/>
+
+            </Grid>
+        </Border>
+        
+        
     </Grid>
 </UserControl>

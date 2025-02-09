@@ -12,7 +12,7 @@ namespace InvoiceHandler
         }
 
         // tarkistetaan, että mitä nappia on painettu ja vaihdetaan näkymää ja nappien toggleja sen mukaan.
-        private void btnMenu_Click(object sender, RoutedEventArgs e)
+        private void btnLeftMenu_Click(object sender, RoutedEventArgs e)
         {
             // nollataan buttonit, että vain yksi voi olla painettuna kerrallaan
             btnDash.IsChecked = false;

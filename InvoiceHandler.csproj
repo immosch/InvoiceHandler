@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Fonts\static\Roboto_Condensed-Black.ttf" />
-    <None Remove="Assets\Fonts\static\Roboto_Condensed-Bold.ttf" />
+    <None Remove="Assets\Icons\arrow_forward_16px.png" />
     <None Remove="Assets\Icons\customers.png" />
     <None Remove="Assets\Icons\home.png" />
     <None Remove="Assets\Icons\invoices.png" />
@@ -25,8 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Fonts\static\Roboto_Condensed-Black.ttf" />
-    <Content Include="Assets\Fonts\static\Roboto_Condensed-Bold.ttf" />
+    <Content Include="Assets\Icons\arrow_forward_16px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Icons\customers.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

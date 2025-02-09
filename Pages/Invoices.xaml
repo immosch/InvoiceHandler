@@ -5,42 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InvoiceHandler.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="830">
-    
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#2a2b2e" Offset="0.0"/>
-                <GradientStop Color="#52545c" Offset="1.0"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+             d:DesignHeight="720" d:DesignWidth="1500">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Assets/styles.xaml"/>
+    </UserControl.Resources>
+
+    <Grid Background="LightGray">
 
         <!-- layout -->
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Margin="15" BorderBrush="White" BorderThickness="2" CornerRadius="8" Padding="10">
-                <Label Content="Create new invoice:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="#92B9BD"/>
-            </Border>
+            <!-- top menu -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="55,0,0,0">
+                <!-- new invoice -->
+                <ToggleButton x:Name="btnAddInvoice" Content="Create new Invoice" Style="{StaticResource invoiceMenubtn}" Click="btnInvoicemenu_Click"/>
 
-            <Border Margin="15" BorderBrush="White" BorderThickness="2" CornerRadius="8" Grid.Column="1" Padding="10">
-                <Label Content="Edit existing invoice:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="#92B9BD"/>
-            </Border>
+                <!-- search invoice -->
+                <ToggleButton x:Name="btnSearchInvoice" Content="Search for an Invoice" Style="{StaticResource invoiceMenubtn}" Click="btnInvoicemenu_Click"/>
+            </StackPanel>
 
-            <Border Margin="15" BorderBrush="White" BorderThickness="2" CornerRadius="8" Grid.ColumnSpan="2" Grid.Row="1" Padding="10">
-                <Label Content="Search for an invoice:" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="/Assets/Fonts/#Roboto" FontSize="18" FontWeight="Bold" Foreground="#92B9BD"/>
-            </Border>
+            <Separator Background="#88e788" VerticalAlignment="Bottom"/>
 
+            <ContentControl x:Name="invoiceContent" Grid.Row="1">
+                <!--  -->
+            </ContentControl>
         </Grid>
-        
-
     </Grid>
 </UserControl>

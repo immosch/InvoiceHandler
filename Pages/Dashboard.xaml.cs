@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace InvoiceHandler.Pages
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
     public partial class Dashboard : UserControl
     {
         public Dashboard()
         {
             InitializeComponent();
+        }
+
+        private void dash_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = (MainWindow)Application.Current.MainWindow;
+
+            main.btnDash.IsChecked = false;
+            main.btnInvoices.IsChecked = false;
+            main.btnCustomers.IsChecked = false;
+            main.btnProducts.IsChecked = false;
+
+            if (sender == totalInvoices || sender == totalRevenue)
+            {
+                main.mainContent.Content = new Invoices();
+                main.btnInvoices.IsChecked = true;
+            }
+            else if (sender == totalCustomers)
+            {
+                main.mainContent.Content = new Customers();
+                main.btnCustomers.IsChecked = true;
+            }
+            else if (sender == productsSold)
+            {
+                main.mainContent.Content = new Products();
+                main.btnProducts.IsChecked = true;
+            }
         }
     }
 }

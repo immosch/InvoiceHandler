@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         FontFamily="/Assets/Fonts/#Roboto"
         Title="InvoiceHandler"
-        Height="720" Width="1080"
+        Height="1080" Width="1920"
         MinHeight="650" MinWidth="1080"
         ResizeMode="CanResize"
         Background="#2a2b2e"
@@ -17,9 +17,9 @@
     </Window.Resources>
 
     <!-- Main Layout -->
-    <Grid x:Name="layoutContainer">
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="230"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -29,13 +29,13 @@
             <StackPanel Orientation="Vertical">
                 
                 <!-- Logo -->
-                <TextBlock Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25">
-                    <Run Foreground="#92B9BD" FontSize="24" Text="Invoice" FontStyle="Normal" FontWeight="Bold"/>
-                    <Run Foreground="#5A5A66" FontSize="24" Text="Handler" FontStyle="Normal" FontWeight="Bold"/>
+                <TextBlock Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15">
+                    <Run Foreground="#92B9BD" FontSize="24" Text="Invoice" FontWeight="Bold" FontFamily="Arial Black"/>
+                    <Run Foreground="#5A5A66" FontSize="24" Text="Handler" FontWeight="Bold" FontFamily="Arial Black"/>
                 </TextBlock>
 
                 <!-- dashboard -->
-                <ToggleButton x:Name="btnDash" Style="{StaticResource leftMenubtn}" Click="btnMenu_Click">
+                <ToggleButton x:Name="btnDash" Style="{StaticResource leftMenubtn}" Click="btnLeftMenu_Click">
                     <ToggleButton.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Width="24" Source="Assets/Icons/home.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -45,7 +45,7 @@
                 </ToggleButton>
 
                 <!-- invoices -->
-                <ToggleButton x:Name="btnInvoices" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                <ToggleButton x:Name="btnInvoices" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnLeftMenu_Click">
                     <ToggleButton.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Width="24" Source="Assets/Icons/invoices.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -55,7 +55,7 @@
                 </ToggleButton>
 
                 <!-- customers -->
-                <ToggleButton x:Name="btnCustomers" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                <ToggleButton x:Name="btnCustomers" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnLeftMenu_Click">
                     <ToggleButton.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Width="24" Source="Assets/Icons/customers.png" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -65,7 +65,7 @@
                 </ToggleButton>
 
                 <!-- products -->
-                <ToggleButton x:Name="btnProducts" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnMenu_Click">
+                <ToggleButton x:Name="btnProducts" Style="{StaticResource leftMenubtn}" Margin="0,10,0,0" Click="btnLeftMenu_Click">
                     <ToggleButton.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Width="24" Source="Assets/Icons/products.png" VerticalAlignment="Center" Margin="10,0,0,0"/>

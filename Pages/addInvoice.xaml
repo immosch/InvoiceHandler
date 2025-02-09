@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="InvoiceHandler.Pages.addInvoice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceHandler.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1500">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Assets/styles.xaml"/>
+    </UserControl.Resources>
+
+    <Grid Background="LightGray">
+        
+        <!-- layout -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- title -->
+        <TextBlock Grid.ColumnSpan="2" Margin="24,12,0,0" FontSize="36" FontFamily="Arial Black">
+            <Run Text="Create New Invoice for" />
+            <Run Text="{Binding SelectedItem.Content, ElementName=customerCombo}"/>
+        </TextBlock>
+
+        <!-- invoice ID && Client selection -->
+        <TextBlock Grid.Row="1" Text="Invoice ID" HorizontalAlignment="Left" Margin="48,24,0,0" FontSize="36" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+        <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" BorderThickness="2" CornerRadius="8" BorderBrush="Gray">
+            <TextBox x:Name="txtInvoiceID" Margin="10,0,0,0" Text="binding next invoiceid" FontSize="28" FontFamily="Global Sans Serif" Background="Transparent" BorderThickness="0" IsReadOnly="True"/>
+        </Border>
+
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Customer" HorizontalAlignment="Left" Margin="48,24,0,0" FontSize="36" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+        <Border Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom" BorderThickness="2" CornerRadius="8" BorderBrush="Gray">
+            <ComboBox x:Name="customerCombo" Style="{StaticResource invoiceCombo}" DisplayMemberPath="Se">
+                <ComboBoxItem Content="Customer 1" IsSelected="True"/>
+                <ComboBoxItem Content="Customer 2"/> 
+            </ComboBox>
+        </Border>
+
+
+
+    </Grid>
+</UserControl>
