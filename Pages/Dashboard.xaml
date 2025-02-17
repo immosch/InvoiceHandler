@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- title -->
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Report - YTD 2025" FontSize="36" 
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Report - Year-To-Date 2025" FontSize="36" 
             FontWeight="Bold" Foreground="Black" Margin="25,25,0,25" FontFamily="Arial Black"/>
 
         <!-- total invoices -->

@@ -32,7 +32,7 @@
             <Separator Background="#88e788" VerticalAlignment="Bottom"/>
 
             <ContentControl x:Name="invoiceContent" Grid.Row="1">
-                <!--  -->
+                <!-- default = InvoiceCreate -->
             </ContentControl>
         </Grid>
     </Grid>

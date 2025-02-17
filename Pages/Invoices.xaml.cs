@@ -7,7 +7,7 @@ namespace InvoiceHandler.Pages
         public Invoices()
         {
             InitializeComponent();
-            invoiceContent.Content = new addInvoice(); // default näkymä
+            invoiceContent.Content = new InvoiceCreate(); // default näkymä
             btnAddInvoice.IsChecked = true;
         }
 
@@ -18,7 +18,7 @@ namespace InvoiceHandler.Pages
 
             if (sender == btnAddInvoice)
             {
-                invoiceContent.Content = new addInvoice();
+                invoiceContent.Content = new InvoiceCreate();
                 btnAddInvoice.IsChecked = true;
             }
             else if (sender == btnSearchInvoice)
