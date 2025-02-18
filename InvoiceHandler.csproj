@@ -14,7 +14,9 @@
     <None Remove="Assets\Icons\customers.png" />
     <None Remove="Assets\Icons\home.png" />
     <None Remove="Assets\Icons\invoices.png" />
+    <None Remove="Assets\Icons\plus_16px.png" />
     <None Remove="Assets\Icons\products.png" />
+    <None Remove="Assets\Icons\trash_16px.png" />
     <None Remove="customers.png" />
     <None Remove="invoices.png" />
     <None Remove="products.png" />
@@ -40,13 +42,20 @@
     <Content Include="Assets\Icons\invoices.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\plus_16px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Icons\products.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\trash_16px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="dotnetenv" Version="3.1.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

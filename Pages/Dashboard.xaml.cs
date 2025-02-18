@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using InvoiceHandler.Data;
+using InvoiceHandler.PageDataModels;
 
 
 namespace InvoiceHandler.Pages
@@ -10,20 +10,10 @@ namespace InvoiceHandler.Pages
         public Dashboard()
         {
             InitializeComponent();
-            int invoiceCount = dbActions.GetInvoiceCount();
-            totInv.Text = invoiceCount.ToString();
-
-            double totalRevenue = dbActions.GetTotalRevenue();
-            totalRevenue = Math.Round(totalRevenue, 2);
-            totRev.Text = totalRevenue.ToString() + "$";
-
-            int customerCount = dbActions.GetCustomerCount();
-            totCust.Text = customerCount.ToString();
-            
-            int productsSold = dbActions.GetProductsSold();
-            prodSold.Text = productsSold.ToString();
+            this.DataContext = new DashboardData();
         }
 
+        // Change the content based on which statistic button is pressed.
         private void dash_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = (MainWindow)Application.Current.MainWindow;

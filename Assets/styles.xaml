@@ -8,6 +8,7 @@
         <Setter Property="Height" Value="75"/>
         <Setter Property="Width" Value="250"/>
         <Setter Property="BorderThickness" Value="0,1"/>
+        <Setter Property="Cursor" Value="Hand"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -78,7 +79,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="15"/>
         <Setter Property="FontFamily" Value="Arial Black"/>
-        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontSize" Value="22"/>
         <Setter Property="Foreground" Value="#a3a2a2"/>
         <Setter Property="Cursor" Value="Hand"/>
 

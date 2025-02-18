@@ -114,5 +114,12 @@ namespace InvoiceHandler.Data
         public InvoiceLine() { }
 
     }
+
+    public class RevenueData
+    {
+        public int Month { get; set; }
+        public double TotalRevenue { get; set; }
+    }
+
 }
 

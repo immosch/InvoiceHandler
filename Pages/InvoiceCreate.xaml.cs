@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using InvoiceHandler.Data;
+using InvoiceHandler.PageDataModels;
 
 namespace InvoiceHandler.Pages
 {
@@ -8,10 +8,7 @@ namespace InvoiceHandler.Pages
         public InvoiceCreate()
         {
             InitializeComponent();
-            datePicker.SelectedDate = DateTime.Now;
-
-            List<Customer> CustomersComboSource = dbActions.CustomersToList() ?? [];
-            customerCombo.ItemsSource = CustomersComboSource.Select(c => c.Name);
+            this.DataContext = new InvoiceData();
         }
 
         private void addInf_GotFocus(object sender, System.Windows.RoutedEventArgs e)
