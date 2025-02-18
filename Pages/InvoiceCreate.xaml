@@ -29,7 +29,7 @@
             <!-- title -->
             <TextBlock HorizontalAlignment="Center" Margin="24,12,0,0" FontSize="36" FontFamily="Arial Black">
                 <Run Text="Create New Invoice for" />
-                <Run Text="{Binding SelectedItem.Content, ElementName=customerCombo}"/> 
+                <Run Text="{Binding SelectedItem, ElementName=customerCombo}"/> 
             </TextBlock>
 
             <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>
@@ -43,10 +43,7 @@
 
                 <TextBlock Text="Customer" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="36" FontWeight="Bold" FontFamily="Global Sans Serif" MinWidth="300"/>
                 <Border VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,24,0" Padding="5"  MinWidth="300">
-                    <ComboBox x:Name="customerCombo" Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28">
-                        <ComboBoxItem Content="Customer 1" IsSelected="True"/>
-                        <ComboBoxItem Content="Customer 2"/>
-                    </ComboBox>
+                    <ComboBox x:Name="customerCombo" Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28" SelectedIndex="0"/>
                 </Border>
             </StackPanel>
             <Separator Grid.Row="1" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>

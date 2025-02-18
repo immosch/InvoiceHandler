@@ -1,16 +1,17 @@
 ﻿using System.Windows.Controls;
+using InvoiceHandler.Data;
 
 namespace InvoiceHandler.Pages
 {
-    /// <summary>
-    /// Interaction logic for addInvoice.xaml
-    /// </summary>
     public partial class InvoiceCreate : UserControl
     {
         public InvoiceCreate()
         {
             InitializeComponent();
             datePicker.SelectedDate = DateTime.Now;
+
+            List<Customer> CustomersComboSource = dbActions.CustomersToList() ?? [];
+            customerCombo.ItemsSource = CustomersComboSource.Select(c => c.Name);
         }
 
         private void addInf_GotFocus(object sender, System.Windows.RoutedEventArgs e)
