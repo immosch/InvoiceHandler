@@ -19,7 +19,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting Invoice count: {ex}");
+                MessageBox.Show($"Error fetching Invoice count: {ex}");
                 return 0;
             }
         }
@@ -37,7 +37,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting total revenue: {ex}");
+                MessageBox.Show($"Error fetching total revenue: {ex}");
                 return 0;
             }
         }
@@ -54,7 +54,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting customer count: {ex}");
+                MessageBox.Show($"Error fetching customer count: {ex}");
                 return 0;
             }
         }
@@ -72,7 +72,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting products sold: {ex}");
+                MessageBox.Show($"Error fetching products sold: {ex}");
                 return 0;
             }
         }
@@ -88,7 +88,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting Customer list: {ex}");
+                MessageBox.Show($"Error fetching Customer list: {ex}");
                 return [];
             }
         }
@@ -114,7 +114,7 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting revenue chart data: {ex}");
+                MessageBox.Show($"Error fetching revenue chart data: {ex}");
                 return [];
             }
         }
@@ -132,8 +132,24 @@ namespace InvoiceHandler.Data
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error when getting next invoice ID: {ex}");
+                MessageBox.Show($"Error fetching next invoice ID: {ex}");
                 return 0;
+            }
+        }
+
+        public static List<Product> GetProducts() // fetch all products
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    return db.Products.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching products data: {ex}");
+                return [];
             }
         }
     }

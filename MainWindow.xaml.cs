@@ -7,14 +7,14 @@ namespace InvoiceHandler
         public MainWindow()
         {
             InitializeComponent();
-            mainContent.Content = new Pages.Dashboard(); // default näkymä
+            mainContent.Content = new Pages.Dashboard(); // default
             btnDash.IsChecked = true;
         }
 
-        // tarkistetaan, että mitä nappia on painettu ja vaihdetaan näkymää ja nappien toggleja sen mukaan.
+        // check which button is clicked and change the content
         private void btnLeftMenu_Click(object sender, RoutedEventArgs e)
         {
-            // nollataan buttonit, että vain yksi voi olla painettuna kerrallaan
+            // reset all buttons
             btnDash.IsChecked = false;
             btnInvoices.IsChecked = false;
             btnCustomers.IsChecked = false;
