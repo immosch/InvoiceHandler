@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         FontFamily="/Assets/Fonts/#Roboto"
         Title="InvoiceHandler"
-        Height="1080" Width="1920"
+        Height="800" Width="1920"
         MinHeight="650" MinWidth="765"
         ResizeMode="CanResize"
         Background="#2a2b2e"

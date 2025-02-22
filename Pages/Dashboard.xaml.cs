@@ -91,5 +91,21 @@ namespace InvoiceHandler.Pages
                 main.btnProducts.IsChecked = true;
             }
         }
+
+        private void Dashboard_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < 900)
+            {
+                Grid.SetRow(chartCont, 3);
+                Grid.SetColumn(chartCont, 0);
+                Grid.SetColumnSpan(chartCont, 2);
+            }
+            else
+            {
+                Grid.SetRow(chartCont, 1);
+                Grid.SetColumn(chartCont, 2);
+                Grid.SetColumnSpan(chartCont, 1);
+            }
+        }
     }
 }

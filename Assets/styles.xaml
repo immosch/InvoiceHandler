@@ -106,6 +106,33 @@
         </Style.Triggers>
     </Style>
 
+    <!-- gray_style button -->
+    <Style x:Key="grayBtn" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#8c8b8b"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
     <!-- invoice combobox -->
     <!-- https://learn.microsoft.com/en-us/answers/questions/1523118/how-to-change-the-grey-default-background-of-a-com -->
     <Style x:Key="FocusVisual">

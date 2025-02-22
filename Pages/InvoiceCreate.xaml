@@ -12,7 +12,7 @@
     </UserControl.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid Background="LightGray">
+        <Grid x:Name="mainCont" Background="LightGray">
 
             <!-- layout -->
             <Grid.ColumnDefinitions>
@@ -25,44 +25,56 @@
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/> 
             </Grid.RowDefinitions>
 
             <!-- title -->
-            <TextBlock HorizontalAlignment="Center" Margin="24,12,0,0" FontSize="32" FontFamily="Arial Black">
+            <Grid Margin="50,0">
+                <TextBlock HorizontalAlignment="Center" Margin="24,12,0,0" FontSize="32" FontFamily="Arial Black">
                 <Run Text="Create New Invoice for" />
                 <Run Text="{Binding SelectedItem.Name, ElementName=customerCombo}"/>
-            </TextBlock>
+                </TextBlock>
+            </Grid>
+
 
             <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>
 
             <!-- invoice ID && Client selection -->
+            <Grid Grid.Row="1" Margin="50,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Background="Transparent">
-                <TextBlock VerticalAlignment="Center" Text="Invoice ID" Margin="24,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif" MinWidth="250"/>
-                <Border VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,0,0" Padding="5" MinWidth="250">
+                <TextBlock VerticalAlignment="Center" Text="Invoice ID" Margin="24,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+
+                <Border Grid.Column="1" VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,0,0" Padding="5">
                     <TextBox x:Name="txtInvoiceID" Margin="10,0,0,0" Text="{Binding NextID}" FontSize="28" FontFamily="Global Sans Serif" Background="Transparent" BorderThickness="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                 </Border>
 
-                <TextBlock Text="Customer" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif" MinWidth="250"/>
-                <Border VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,24,0" Padding="5"  MinWidth="250">
+                <TextBlock Grid.Column="2" Text="Customer" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+
+                <Border Grid.Column="3" VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,0,0" Padding="5">
                     <ComboBox x:Name="customerCombo" Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28" SelectedIndex="0" ItemsSource="{Binding CustomerList}" DisplayMemberPath="Name"/>
                 </Border>
-            </StackPanel>
+
+            </Grid>
             <Separator Grid.Row="1" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>
 
             <!-- invoice date && due date -->
-            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Background="Transparent">
-                <TextBlock VerticalAlignment="Center" Text="Invoice Date" Margin="24,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif" MinWidth="250"/>
-                <Border VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,0,0" MinWidth="250">
+            <Grid Grid.Row="2" Margin="50,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock VerticalAlignment="Center" Text="Invoice Date" Margin="24,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+
+                <Border Grid.Column="1" VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,0,0">
                     <DatePicker x:Name="datePicker" IsTodayHighlighted="True" SelectedDate="{Binding CurrentDate}">
                         <DatePicker.Resources>
                             <Style TargetType="DatePickerTextBox">
@@ -76,8 +88,8 @@
                                         <ControlTemplate TargetType="DatePickerTextBox">
                                             <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
                                                 <ScrollViewer x:Name="PART_ContentHost"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"/>
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"/>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -87,8 +99,9 @@
                     </DatePicker>
                 </Border>
 
-                <TextBlock Text="Due Date" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif" MinWidth="250"/>
-                <Border VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,24,0" Padding="5" MinWidth="250">
+                <TextBlock Grid.Column="2" Text="Due Date" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+
+                <Border Grid.Column="3" VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,24,0" Padding="5" >
                     <ComboBox Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28" >
                         <ComboBoxItem Content="7 Days"/>
                         <ComboBoxItem Content="14 Days" IsSelected="True"/>
@@ -96,15 +109,17 @@
                         <ComboBoxItem Content="30 Days"/>
                     </ComboBox>
                 </Border>
-            </StackPanel>
+            </Grid>
+
             <Separator Grid.Row="2" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>
 
             <!-- add info textbox -->
-            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Background="Transparent">
-                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="0,10" Padding="5" MinWidth="1000">
+            <Grid Grid.Row="3" Margin="150,0">
+                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="0,10" Padding="5">
                     <TextBox x:Name="addInf" Focusable="True" GotFocus="addInf_GotFocus" LostFocus="addInf_LostFocus" Margin="10,0,0,0" Text="You can write additional information about the invoice here..." FontSize="28" FontFamily="Global Sans Serif" BorderThickness="0" Background="Transparent" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
                 </Border>
-            </StackPanel>
+            </Grid>
+
             <Separator Grid.Row="3" VerticalAlignment="Bottom" Background="Gray" Margin="50,0,50,0"/>
 
             <!-- Select products infocard -->
@@ -126,149 +141,67 @@
                 </Grid>
             </Border>
 
-            <!-- product selection #1 -->
-            <Grid Grid.Row="5" Height="65" MinHeight="65" Margin="250,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+            <!-- product selection container -->
+            <Grid x:Name="prodCont" Grid.Row="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
 
-                <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent">
-                    <Button.Content>
-                        <Grid>
-                            <Image Source="/Assets/Icons/plus_16px.png" Visibility="Collapsed"/>
-                            <Image Source="/Assets/Icons/trash_16px.png" Visibility="Collapsed"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
+                <Grid Height="65" MinHeight="65" Margin="250,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10">
-                    <ComboBox x:Name="prodCombo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
-                </Border>
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10">
-                    <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                </Border>
-                <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent">
+                        <Button.Content>
+                            <Image Source="/Assets/Icons/plus_16px.png" Visibility="Hidden" IsEnabled="False"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10">
+                        <ComboBox x:Name="prodCombo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
+                    </Border>
+                    <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10">
+                        <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </Border>
+                    <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- addnew -->
+                <Grid x:Name="plusGrid" Grid.Row="1" Height="65" MinHeight="65" Margin="250,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Cursor="Hand" Click="PlusButton_Click">
+                        <Button.Content>
+                            <Grid>
+                                <Image Source="/Assets/Icons/plus_16px.png" Visibility="Visible"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Grid>
             </Grid>
 
-            <!-- product selection #2 -->
-            <Grid Grid.Row="6" Height="65" MinHeight="65" Margin="250,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+            <Separator Grid.Row="6" VerticalAlignment="Top" Background="Gray" Margin="50,0"/>
 
-                <Button x:Name="btn1" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Click="LineButton_Click">
-                    <Button.Content>
-                        <Grid>
-                            <Image x:Name="btn1plus" Source="/Assets/Icons/plus_16px.png" Visibility="Visible"/>
-                            <Image x:Name="btn1trash" Source="/Assets/Icons/trash_16px.png" Visibility="Collapsed"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
+            <Grid Grid.Row="6" Margin="250,10">
+                <Border VerticalAlignment="Stretch" HorizontalAlignment="Center" BorderThickness="1" CornerRadius="8" BorderBrush="Gray" Margin="0,10" Background="Gray" Padding="5">
+                    <Button Content="Create Invoice" FontSize="28" Margin="25,0" Style="{StaticResource grayBtn}" FontFamily="Arial Black"/>
 
-                <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[0]}">
-                    <ComboBox x:Name="prodCombo2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
                 </Border>
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[0]}">
-                    <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                </Border>
-                <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo2}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[0]}"/>
-                <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[0]}"/>
             </Grid>
 
-            <!-- product selection #3 -->
-            <Grid Grid.Row="7" Height="65" MinHeight="65" Margin="250,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="btn2" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Click="LineButton_Click">
-                    <Button.Content>
-                        <Grid>
-                            <Image x:Name="btn2plus" Source="/Assets/Icons/plus_16px.png" Visibility="Collapsed"/>
-                            <Image x:Name="btn2trash" Source="/Assets/Icons/trash_16px.png" Visibility="Collapsed"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-
-                <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[1]}">
-                    <ComboBox x:Name="prodCombo3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
-                </Border>
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[1]}">
-                    <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                </Border>
-                <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo3}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[1]}"/>
-                <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[1]}"/>
-            </Grid>
-
-            <!-- product selection #4 -->
-            <Grid Grid.Row="8" Height="65" MinHeight="65" Margin="250,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="btn3" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Click="LineButton_Click">
-                    <Button.Content>
-                        <Grid>
-                            <Image x:Name="btn3plus" Source="/Assets/Icons/plus_16px.png" Visibility="Collapsed"/>
-                            <Image x:Name="btn3trash" Source="/Assets/Icons/trash_16px.png" Visibility="Collapsed"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-
-                <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[2]}">
-                    <ComboBox x:Name="prodCombo4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
-                </Border>
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[2]}">
-                    <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                </Border>
-                <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo4}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[2]}"/>
-                <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[2]}"/>
-            </Grid>
-            <!-- product selection #5 -->
-            <Grid Grid.Row="9" Height="65" MinHeight="65" Margin="250,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="btn4" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Click="LineButton_Click">
-                    <Button.Content>
-                        <Grid>
-                            <Image x:Name="btn4plus" Source="/Assets/Icons/plus_16px.png" Visibility="Collapsed"/>
-                            <Image x:Name="btn4trash" Source="/Assets/Icons/trash_16px.png" Visibility="Collapsed"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-
-                <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[3]}">
-                    <ComboBox x:Name="prodCombo5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
-                </Border>
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10" Visibility="{Binding IsLineVisible[3]}">
-                    <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                </Border>
-                <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo5}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[3]}"/>
-                <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLineVisible[3]}"/>
-            </Grid>
         </Grid>
     </ScrollViewer>
 </UserControl>
