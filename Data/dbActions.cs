@@ -60,7 +60,7 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static int GetProductsSold() // products sold count query
+        public static double GetProductsSold() // products sold count query
         {
             try
             {
@@ -151,6 +151,30 @@ namespace InvoiceHandler.Data
             {
                 MessageBox.Show($"Error fetching products data: {ex}");
                 return [];
+            }
+        }
+
+        public static bool CreateInvoice(Invoice invoice, List<InvoiceLine> invoiceLines)
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Invoices.Add(invoice);
+                    db.SaveChanges();
+
+                    foreach (var line in invoiceLines)
+                    {
+                        db.InvoiceLines.Add(line);
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating invoice: {ex}");
+                return false;
             }
         }
     }

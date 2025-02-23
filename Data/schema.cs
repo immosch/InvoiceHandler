@@ -89,7 +89,7 @@ namespace InvoiceHandler.Data
         [Key]
         public int ID { get; set; }
 
-        public int Amount { get; set; } = 0;
+        public double Amount { get; set; } = 0;
 
         public double LineTotal { get; set; } = 0;
 

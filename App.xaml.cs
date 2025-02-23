@@ -41,7 +41,7 @@ namespace InvoiceHandler
             var prod = new Product("Work", "h", 80); // 1
             var prod2 = new Product("Silicone", "Pcs", 5.95); // 2
             var prod3 = new Product("Sealant", "Pcs", 1); // 3
-            var prod4 = new Product("Lumber 22x100 ST", "m", 1.18); // 4
+            var prod4 = new Product("Lumber", "m", 1.18); // 4
 
             // invoice 1
             var inv1 = new Invoice(new DateOnly(2025, 02, 02), new DateOnly(2025, 02, 02).AddDays(14), false, 402.04, "Kattoremontti", 1); // 1

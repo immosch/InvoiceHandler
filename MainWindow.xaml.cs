@@ -41,5 +41,19 @@ namespace InvoiceHandler
                 btnProducts.IsChecked = true;
             }
         }
+
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < 1250)
+            {
+                leftLogo.Visibility = Visibility.Collapsed;
+                leftMenu.Width = 60;
+            }
+            else
+            {
+                leftLogo.Visibility = Visibility.Visible;
+                leftMenu.Width = 230;
+            }
+        }
     }
 }

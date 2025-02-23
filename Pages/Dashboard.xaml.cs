@@ -13,7 +13,7 @@ namespace InvoiceHandler.Pages
         public int InvoiceCount { get; set; }
         public string TotalRevenue { get; set; } = "0$";
         public int CustomerCount { get; set; }
-        public int ProductsSold { get; set; }
+        public double ProductsSold { get; set; }
         public SeriesCollection? Series { get; set; }
         public string[]? Labels { get; set; }
         public Func<double, string>? Yformatter { get; set; }

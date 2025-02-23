@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using InvoiceHandler.Data;
+using InvoiceHandler.Pages;
 
 namespace InvoiceHandler.Pages
 {
@@ -15,7 +15,7 @@ namespace InvoiceHandler.Pages
         public List<Product> ProductList { get; set; } = [];
         public DateTime CurrentDate { get; set; }
         public int NextID { get; set; }
-        public static ObservableCollection<Grid> InvoiceLines { get; set; } = [];
+        public List<Grid> InvoiceLines { get; set; } = [];
 
 
         public InvoiceCreate()
@@ -43,19 +43,9 @@ namespace InvoiceHandler.Pages
             if (addInf.Text == "") addInf.Text = "You can write additional information about the invoice here...";
         }
 
+        // add new invoice line when plus button is clicked
         private void PlusButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            AddInvoiceLine();
-        }
-
-        private void Trashbutton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            RemoveInvoiceLine();
-        }
-
-        private void AddInvoiceLine()
-        {
-
             RowDefinition row = new()
             { Height = GridLength.Auto };
             prodCont.RowDefinitions.Add(row);
@@ -71,7 +61,8 @@ namespace InvoiceHandler.Pages
             prodCont.Children.Add(newLine);
         }
 
-        private void RemoveInvoiceLine()
+        // remove invoice line when trash button is clicked
+        private void Trashbutton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             int toRemoveIndex = prodCont.RowDefinitions.Count - 2;
 
@@ -87,10 +78,171 @@ namespace InvoiceHandler.Pages
             prodCont.RowDefinitions.RemoveAt(toRemoveIndex);
             Grid.SetRow(plusGrid, toRemoveIndex + 1);
             if (InvoiceLines.Count > 0) InvoiceLines.RemoveAt(0);
-
         }
 
+        // Update total amount when amount input gets focus
+        private void AmountInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox amountInput) // if sender is TextBox
+            {
+                if (double.TryParse(amountInput.Text, out double amount)) // if amount is a number
+                {
 
+                    if (amountInput.Tag is not Grid parentGrid) return;
+
+                    TextBlock? PPUTextBlock = parentGrid.Children // find price per unit textblock
+                        .OfType<TextBlock>()
+                        .FirstOrDefault(tb => Grid.GetColumn(tb) == 3);
+
+                    TextBlock? totalAmountTextBlock = parentGrid.Children // find total amount textblock
+                        .OfType<TextBlock>()
+                        .FirstOrDefault(tb => Grid.GetColumn(tb) == 4);
+
+                    if (PPUTextBlock == null || totalAmountTextBlock == null) return;
+
+                    if (double.TryParse(PPUTextBlock.Text, out double pricePerUnit)) // if price per unit is a number
+                    {
+                        totalAmountTextBlock.Text = (amount * pricePerUnit).ToString("F2"); // update total amount
+                    }
+                }
+                else
+                {
+                    amountInput.Text = "";
+                    return;
+                }
+
+            }
+        }
+
+        // Update total amount when amount input loses focus
+        private void AmountInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox amountInput) // if sender is textbox
+            {
+                if (double.TryParse(amountInput.Text, out double amount)) // id amount is number
+                {
+
+                    if (amountInput.Tag is not Grid parentGrid) return;
+
+                    TextBlock? PPUTextBlock = parentGrid.Children // find price per unit textblock
+                        .OfType<TextBlock>()
+                        .FirstOrDefault(tb => Grid.GetColumn(tb) == 3);
+
+                    TextBlock? totalAmountTextBlock = parentGrid.Children // find total amount textblock
+                        .OfType<TextBlock>()
+                        .FirstOrDefault(tb => Grid.GetColumn(tb) == 4);
+
+                    if (PPUTextBlock == null || totalAmountTextBlock == null) return;
+
+                    if (double.TryParse(PPUTextBlock.Text, out double pricePerUnit)) // if price per unit is number
+                    {
+                        totalAmountTextBlock.Text = (amount * pricePerUnit).ToString("F2"); // update total amount
+                    }
+                }
+                else
+                {
+                    amountInput.Text = "Type amount...";
+                    return;
+                }
+            }
+        }
+
+        // Create invoice
+        private void createBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var date = datePicker.SelectedDate.HasValue ? DateOnly.FromDateTime(datePicker.SelectedDate.Value) : DateOnly.FromDateTime(DateTime.Today);
+            DateOnly dueDate = date.AddDays(14);
+            string additionalInfo = addInf.Text == "You can write additional information about the invoice here..." ? "No additional information given" : addInf.Text;
+            List<InvoiceLine> invoiceLinesToInsert = [];
+
+            switch (dueDateCombo.SelectedItem)
+            {
+                case "7 Days":
+                    dueDate = date.AddDays(7);
+                    break;
+                case "14 Days":
+                    dueDate = date.AddDays(14);
+                    break;
+                case "24 Days":
+                    dueDate = date.AddDays(24);
+                    break;
+                case "30 Days":
+                    dueDate = date.AddDays(30);
+                    break;
+                default:
+                    break;
+            }
+            double invoiceTotal = 0;
+
+            var firstLineAmount = double.TryParse(amountText.Text, out double amountFirst) ? amountFirst : 0;
+
+            if (prodCombo.SelectedItem is Product selectedProductFirst)
+            {
+                invoiceLinesToInsert.Add(new InvoiceLine
+                {
+                    Amount = firstLineAmount,
+                    LineTotal = firstLineAmount * selectedProductFirst.PricePerUnit,
+                    ProductID = selectedProductFirst.ID,
+                    InvoiceID = NextID
+                });
+                invoiceTotal += amountFirst * selectedProductFirst.PricePerUnit;
+            }
+
+            foreach (var invoiceLine in InvoiceLines)
+            {
+                if (invoiceLine.Children[1] is Border comboBorder && comboBorder.Child is ComboBox prodCombo)
+                {
+                    if (prodCombo.SelectedItem is Product selectedProduct)
+                    {
+                        if (invoiceLine.Children[2] is Border textBorder && textBorder.Child is TextBox amountTextBox)
+                        {
+                            if (double.TryParse(amountTextBox.Text, out double amount))
+                            {
+                                invoiceLinesToInsert.Add(new InvoiceLine
+                                {
+                                    Amount = amount,
+                                    LineTotal = amount * selectedProduct.PricePerUnit,
+                                    ProductID = selectedProduct.ID,
+                                    InvoiceID = NextID,                                    
+                                });
+                                invoiceTotal += amount * selectedProduct.PricePerUnit;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Invoice? newInvoice = null;
+
+            if (customerCombo.SelectedItem is Customer selectedCustomer)
+            {
+                newInvoice = new Invoice
+                {
+                    CustomerID = selectedCustomer.ID,
+                    InvoiceDate = date,
+                    InvoiceDueDate = dueDate,
+                    WorkDescription = additionalInfo,
+                    PaymentStatus = false,
+                    InvoiceTotal = invoiceTotal
+                };
+            }
+
+            if ( newInvoice != null && dbActions.CreateInvoice(newInvoice, invoiceLinesToInsert))
+            {
+                MessageBox.Show("Invoice created successfully!");
+
+                if (Application.Current.MainWindow is MainWindow mainWindow)
+                {
+                    mainWindow.mainContent.Content = new Invoices();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error creating invoice!");
+            }
+        }
+
+        // Dynamic invoice line element creation method
         private Grid CreateInvoiceLineElement()
         {
             Grid grid = new()
@@ -145,6 +297,7 @@ namespace InvoiceHandler.Pages
                 SelectedIndex = 0
             };
 
+
             comboBorder.Child = prodCombo;
             grid.Children.Add(comboBorder);
 
@@ -159,12 +312,17 @@ namespace InvoiceHandler.Pages
 
             TextBox amountTextBox = new()
             {
+                Name = "amountText",
                 Text = "Type amount...",
                 FontSize = 22,
                 Background = Brushes.Transparent,
                 HorizontalContentAlignment = HorizontalAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Tag = grid
             };
+
+            amountTextBox.GotFocus += AmountInput_GotFocus;
+            amountTextBox.LostFocus += AmountInput_LostFocus;
 
             textBorder.Child = amountTextBox;
             grid.Children.Add(textBorder);
@@ -190,15 +348,15 @@ namespace InvoiceHandler.Pages
             Grid.SetColumn(priceText, 3);
             grid.Children.Add(priceText);
 
-            TextBlock staticText = new()
+            TextBlock totalAmount = new()
             {
-                Text = "1234",
+                Text = "0.00",
                 FontSize = 22,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            Grid.SetColumn(staticText, 4);
-            grid.Children.Add(staticText);
+            Grid.SetColumn(totalAmount, 4);
+            grid.Children.Add(totalAmount);
 
             return grid;
         }

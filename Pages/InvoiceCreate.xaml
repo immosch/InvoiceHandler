@@ -102,7 +102,7 @@
                 <TextBlock Grid.Column="2" Text="Due Date" VerticalAlignment="Center" Margin="48,0,0,0" FontSize="32" FontWeight="Bold" FontFamily="Global Sans Serif"/>
 
                 <Border Grid.Column="3" VerticalAlignment="Center" BorderThickness="2" CornerRadius="8" BorderBrush="Gray" Margin="48,0,24,0" Padding="5" >
-                    <ComboBox Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28" >
+                    <ComboBox x:Name="dueDateCombo" Style="{StaticResource ComboBoxinvoice}" Margin="10,0,0,0" FontSize="28" >
                         <ComboBoxItem Content="7 Days"/>
                         <ComboBoxItem Content="14 Days" IsSelected="True"/>
                         <ComboBoxItem Content="24 Days"/>
@@ -148,7 +148,7 @@
                     <RowDefinition Height="65"/>
                 </Grid.RowDefinitions>
 
-                <Grid Height="65" MinHeight="65" Margin="250,0">
+                <Grid x:Name="parentGrid" Height="65" MinHeight="65" Margin="250,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -157,7 +157,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent">
+                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Visibility="Hidden" IsEnabled="False">
                         <Button.Content>
                             <Image Source="/Assets/Icons/plus_16px.png" Visibility="Hidden" IsEnabled="False"/>
                         </Button.Content>
@@ -167,13 +167,13 @@
                         <ComboBox x:Name="prodCombo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxinvoice}" ItemsSource="{Binding ProductList}" DisplayMemberPath="Name" SelectedIndex="0"/>
                     </Border>
                     <Border Grid.Column="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Margin="10">
-                        <TextBox Text="Type amount..." FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <TextBox x:Name="amountText" Text="Type amount..." GotFocus="AmountInput_GotFocus" LostFocus="AmountInput_LostFocus" FontSize="22" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Tag="{Binding ElementName=parentGrid}"/>
                     </Border>
-                    <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, ElementName=prodCombo}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="1234" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="{Binding SelectedItem.PricePerUnit, StringFormat=F2, ElementName=prodCombo}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock x:Name="totalAmount" Grid.Column="4" Text="0.00" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
-                <!-- addnew -->
+                <!-- add new invoiceLine -->
                 <Grid x:Name="plusGrid" Grid.Row="1" Height="65" MinHeight="65" Margin="250,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -196,12 +196,10 @@
             <Separator Grid.Row="6" VerticalAlignment="Top" Background="Gray" Margin="50,0"/>
 
             <Grid Grid.Row="6" Margin="250,10">
-                <Border VerticalAlignment="Stretch" HorizontalAlignment="Center" BorderThickness="1" CornerRadius="8" BorderBrush="Gray" Margin="0,10" Background="Gray" Padding="5">
-                    <Button Content="Create Invoice" FontSize="28" Margin="25,0" Style="{StaticResource grayBtn}" FontFamily="Arial Black"/>
-
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" CornerRadius="8" BorderBrush="Gray" Background="Gray">
+                    <Button x:Name="createBtn" Click="createBtn_Click" Content="Create Invoice" Style="{StaticResource grayBtn}" Width="275" Height="60"/>
                 </Border>
             </Grid>
-
         </Grid>
     </ScrollViewer>
 </UserControl>
