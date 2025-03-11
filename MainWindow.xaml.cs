@@ -42,6 +42,7 @@ namespace InvoiceHandler
             }
         }
 
+        // change the size of the left menu if the window gets too small
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Width < 1250)

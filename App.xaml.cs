@@ -26,7 +26,7 @@ namespace InvoiceHandler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during startup: {ex.Message}");
+                MessageBox.Show($"Error during database setup: {ex.Message}");
             }
         }
 
@@ -35,7 +35,7 @@ namespace InvoiceHandler
             // customers
             var cust = new Customer("Malli Asiakas", "Asiakkaantie 22, 80200 Joensuu"); // 1
             var cust2 = new Customer("Rakennus asd", "Asiakkaankatu 22, 80400 Ylämylly"); // 2
-            var cust3 = new Customer("Talo Taikurit", "Pihlajakatu 23B, 00140 Helsinki"); // 3
+            var cust3 = new Customer("TaloTaikurit", "Pihlajakatu 23B, 00140 Helsinki"); // 3
 
             // products
             var prod = new Product("Work", "h", 80); // 1

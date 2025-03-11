@@ -6,8 +6,90 @@
              xmlns:local="clr-namespace:InvoiceHandler.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1500">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Assets/styles.xaml"/>
+    </UserControl.Resources>
+
     <Grid Background="LightGray">
-            
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- search container -->
+            <Border Margin="12" BorderThickness="1" CornerRadius="8" BorderBrush="Gray">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image x:Name="searchImg" Source="/Assets/Icons/search_16px.png"/>
+                    <TextBox x:Name="searchTxt" GotFocus="searchTxt_GotFocus" LostFocus="searchTxt_LostFocus" Grid.Column="1" Background="Transparent" BorderThickness="0" Text="You can search using invoice ID or company name..." Margin="24,0,0,0" FontSize="22" VerticalContentAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- search button -->
+            <Border Grid.Column="1" Margin="12" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Background="Gray">
+                <Button x:Name="searchBtn" Style="{StaticResource grayBtn}" Content="SEARCH" Click="searchBtn_Click"/>
+            </Border>
+        </Grid>
+
+        <!-- Invoice display datagrid -->
+        <DataGrid Grid.Row="1"
+                  x:Name="InvoiceDataGrid"
+                  Margin="12"
+                  Background="Transparent"
+                  BorderThickness="1"
+                  BorderBrush="LightGray"
+                  FontFamily="Arial Black"
+                  FontSize="22"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Displays}"                       
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  RowDetailsVisibilityMode="Visible"
+                  >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" />
+                <DataGridTextColumn Header="Customer Address" Binding="{Binding CustomerAddress}" />
+                <DataGridTextColumn Header="Payment Status" Binding="{Binding PaymentStatus}" />
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" />
+                <DataGridTextColumn Header="Due Date" Binding="{Binding InvoiceDueDate}" />
+                <DataGridTextColumn Header="Total Amount" Binding="{Binding InvoiceTotal}" />
+                <DataGridTextColumn Header="Additional Information" Binding="{Binding WorkDescription}"/>
+            </DataGrid.Columns>
+
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid ItemsSource="{Binding InvoiceLines}" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsHitTestVisible="False"
+                              IsReadOnly="True"
+                              Margin="6,0,6,12"
+                              >
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" />
+                            <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+                            <DataGridTextColumn Header="Unit" Binding="{Binding ProductUnit}" />
+                            <DataGridTextColumn Header="Line Total" Binding="{Binding LineTotal}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </Grid>
 </UserControl>

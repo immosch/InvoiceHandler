@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using InvoiceHandler.Data;
-using InvoiceHandler.Pages;
 
 namespace InvoiceHandler.Pages
 {
@@ -28,7 +27,7 @@ namespace InvoiceHandler.Pages
         private void LoadInvoiceData()
         {
             CurrentDate = DateTime.Now;
-            CustomerList = dbActions.CustomersToList();
+            CustomerList = dbActions.GetAllCustomers();
             NextID = dbActions.GetNextInvoiceID();
             ProductList = dbActions.GetProducts();
         }
@@ -44,7 +43,7 @@ namespace InvoiceHandler.Pages
         }
 
         // add new invoice line when plus button is clicked
-        private void PlusButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void AddButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             RowDefinition row = new()
             { Height = GridLength.Auto };
@@ -62,7 +61,7 @@ namespace InvoiceHandler.Pages
         }
 
         // remove invoice line when trash button is clicked
-        private void Trashbutton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Removebutton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             int toRemoveIndex = prodCont.RowDefinitions.Count - 2;
 
@@ -77,7 +76,7 @@ namespace InvoiceHandler.Pages
 
             prodCont.RowDefinitions.RemoveAt(toRemoveIndex);
             Grid.SetRow(plusGrid, toRemoveIndex + 1);
-            if (InvoiceLines.Count > 0) InvoiceLines.RemoveAt(0);
+            if (InvoiceLines.Count > 0) InvoiceLines.RemoveAt(InvoiceLines.Count - 1);
         }
 
         // Update total amount when amount input gets focus
@@ -151,72 +150,91 @@ namespace InvoiceHandler.Pages
         private void createBtn_Click(object sender, RoutedEventArgs e)
         {
             var date = datePicker.SelectedDate.HasValue ? DateOnly.FromDateTime(datePicker.SelectedDate.Value) : DateOnly.FromDateTime(DateTime.Today);
-            DateOnly dueDate = date.AddDays(14);
+            DateOnly dueDate;
             string additionalInfo = addInf.Text == "You can write additional information about the invoice here..." ? "No additional information given" : addInf.Text;
             List<InvoiceLine> invoiceLinesToInsert = [];
 
-            switch (dueDateCombo.SelectedItem)
+            // find out which due date is selected
+            switch (dueDateCombo.SelectedIndex)
             {
-                case "7 Days":
+                case 0:
                     dueDate = date.AddDays(7);
                     break;
-                case "14 Days":
+                case 1:
                     dueDate = date.AddDays(14);
                     break;
-                case "24 Days":
+                case 2:
                     dueDate = date.AddDays(24);
                     break;
-                case "30 Days":
+                case 3:
                     dueDate = date.AddDays(30);
                     break;
                 default:
+                    dueDate = date.AddDays(14);
                     break;
             }
             double invoiceTotal = 0;
 
-            var firstLineAmount = double.TryParse(amountText.Text, out double amountFirst) ? amountFirst : 0;
+            #region xaml hard coded first line
 
-            if (prodCombo.SelectedItem is Product selectedProductFirst)
+            var firstLineAmount = double.TryParse(amountText.Text, out double amountFirst) ? amountFirst : 0; // amount of products
+
+            if (prodCombo.SelectedItem is Product selectedProductFirst) // what product is selected
             {
-                invoiceLinesToInsert.Add(new InvoiceLine
+                invoiceLinesToInsert.Add(new InvoiceLine // add invoice line
                 {
                     Amount = firstLineAmount,
                     LineTotal = firstLineAmount * selectedProductFirst.PricePerUnit,
                     ProductID = selectedProductFirst.ID,
                     InvoiceID = NextID
                 });
-                invoiceTotal += amountFirst * selectedProductFirst.PricePerUnit;
+                invoiceTotal += amountFirst * selectedProductFirst.PricePerUnit; // update invoice total
             }
-
-            foreach (var invoiceLine in InvoiceLines)
+            else
             {
-                if (invoiceLine.Children[1] is Border comboBorder && comboBorder.Child is ComboBox prodCombo)
+                MessageBox.Show("Please select a product!");
+                return;
+            }
+            #endregion
+
+            #region dynamically added lines
+
+            foreach (var invoiceLine in InvoiceLines) // go through all dynamically added lines
+            {
+                if (invoiceLine.Children[1] is Border comboBorder && comboBorder.Child is ComboBox prodCombo) // find product combo box
                 {
-                    if (prodCombo.SelectedItem is Product selectedProduct)
+                    if (prodCombo.SelectedItem is Product selectedProduct) // if product is selected
                     {
-                        if (invoiceLine.Children[2] is Border textBorder && textBorder.Child is TextBox amountTextBox)
+                        if (invoiceLine.Children[2] is Border textBorder && textBorder.Child is TextBox amountTextBox) // find amount of products
                         {
-                            if (double.TryParse(amountTextBox.Text, out double amount))
+                            if (double.TryParse(amountTextBox.Text, out double amount) && amount > 0) // if amount is a number
                             {
-                                invoiceLinesToInsert.Add(new InvoiceLine
+                                invoiceLinesToInsert.Add(new InvoiceLine // add invoice line
                                 {
                                     Amount = amount,
                                     LineTotal = amount * selectedProduct.PricePerUnit,
                                     ProductID = selectedProduct.ID,
                                     InvoiceID = NextID,                                    
                                 });
-                                invoiceTotal += amount * selectedProduct.PricePerUnit;
+                                invoiceTotal += amount * selectedProduct.PricePerUnit; // update invoice total
+                            }
+                            else
+                            {
+                                MessageBox.Show("Please type a positive number in the amount field!");
+                                return;
                             }
                         }
                     }
                 }
             }
+            #endregion
 
-            Invoice? newInvoice = null;
 
-            if (customerCombo.SelectedItem is Customer selectedCustomer)
+            Invoice? newInvoice;
+
+            if (customerCombo.SelectedItem is Customer selectedCustomer) // if customer is selected
             {
-                newInvoice = new Invoice
+                newInvoice = new Invoice // create new invoice
                 {
                     CustomerID = selectedCustomer.ID,
                     InvoiceDate = date,
@@ -226,12 +244,17 @@ namespace InvoiceHandler.Pages
                     InvoiceTotal = invoiceTotal
                 };
             }
+            else
+            {
+                MessageBox.Show("Please select a customer!");
+                return;
+            }
 
-            if ( newInvoice != null && dbActions.CreateInvoice(newInvoice, invoiceLinesToInsert))
+            if ( newInvoice != null && dbActions.CreateInvoice(newInvoice, invoiceLinesToInsert)) // insert invoice and lines to database
             {
                 MessageBox.Show("Invoice created successfully!");
 
-                if (Application.Current.MainWindow is MainWindow mainWindow)
+                if (Application.Current.MainWindow is MainWindow mainWindow) // refresh view to reset invoice selection
                 {
                     mainWindow.mainContent.Content = new Invoices();
                 }
@@ -242,7 +265,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
-        // Dynamic invoice line element creation method
+        // Dynamic invoice line creation method
         private Grid CreateInvoiceLineElement()
         {
             Grid grid = new()
@@ -262,16 +285,18 @@ namespace InvoiceHandler.Pages
                 HorizontalAlignment = HorizontalAlignment.Center,
                 BorderThickness = new Thickness(0),
                 Background = Brushes.Transparent,
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                Width = 65,
+                Height = 65
             };
 
-            imageButton.Click += Trashbutton_Click;
+            imageButton.Click += Removebutton_Click;
 
             Grid buttonGrid = new();
             Image trashImage = new()
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Icons/trash_16px.png")),
-                Visibility = Visibility.Visible
+                Visibility = Visibility.Visible             
             };
 
             buttonGrid.Children.Add(trashImage);

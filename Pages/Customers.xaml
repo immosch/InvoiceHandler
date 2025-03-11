@@ -5,16 +5,82 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InvoiceHandler.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="830">
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#2a2b2e" Offset="0.0"/>
-                <GradientStop Color="#52545c" Offset="1.0"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+             d:DesignHeight="720" d:DesignWidth="1500">
 
-        <Label Content="This is the customers page" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Assets/Styles.xaml"/>
+    </UserControl.Resources>
 
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="All Customers:" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Center" Padding="15"/>
+
+            <DataGrid 
+            Grid.Row="1" 
+            Background="Transparent"
+            ItemsSource="{Binding CustomersList}"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            IsReadOnly="True"
+            BorderThickness="1"
+            BorderBrush="LightGray"
+            FontSize="22"
+            FontFamily="Arial Black"
+            MaxHeight="500"
+            VerticalScrollBarVisibility="Auto"
+            >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Customer Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Customer Address" Binding="{Binding Address}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="Create new customer:" Grid.Row="2" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Center" Padding="15"/>
+
+            <Grid Grid.Row="3">
+                <Separator VerticalAlignment="Top" Margin="25,0,25,0"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="ID:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1">
+                        <TextBox Text="{Binding nextCustID}" Padding="5" IsReadOnly="True" IsEnabled="False" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="22" FontFamily="Arial Black"/>
+                    </Border>
+
+                    <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="2"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="3">
+                        <TextBox x:Name="custNameInput" Text="Type customer name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                    </Border>
+
+                    <TextBlock Text="Address:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="4"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="5">
+                        <TextBox x:Name="custAddressInput" Text="Type customer address..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                    </Border>
+
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="6" Background="Gray">
+                        <Button Style="{StaticResource grayBtn}" Content="CREATE" Click="CreateCustBtn_Click"/>
+                    </Border>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>

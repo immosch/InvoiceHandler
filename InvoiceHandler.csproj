@@ -16,6 +16,7 @@
     <None Remove="Assets\Icons\invoices.png" />
     <None Remove="Assets\Icons\plus_16px.png" />
     <None Remove="Assets\Icons\products.png" />
+    <None Remove="Assets\Icons\search_16px.png" />
     <None Remove="Assets\Icons\trash_16px.png" />
     <None Remove="customers.png" />
     <None Remove="invoices.png" />
@@ -46,6 +47,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\products.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\search_16px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\trash_16px.png">

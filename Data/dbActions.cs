@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Permissions;
 using System.Windows;
 
 namespace InvoiceHandler.Data
@@ -78,11 +79,11 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static List<Customer> CustomersToList() // all customers to list query
+        public static List<Customer> GetAllCustomers() // all customers to list query
         {
             try
             {
-                using ( var db = new InvoiceDbContext())
+                using (var db = new InvoiceDbContext())
                 {
                     return db.Customers.ToList();
                 }
@@ -154,7 +155,7 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static bool CreateInvoice(Invoice invoice, List<InvoiceLine> invoiceLines)
+        public static bool CreateInvoice(Invoice invoice, List<InvoiceLine> invoiceLines) // create invoice
         {
             try
             {
@@ -177,5 +178,46 @@ namespace InvoiceHandler.Data
                 return false;
             }
         }
+
+        public static List<InvoiceDisplay> GetInvoiceDisplays()
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    var invoices = db.Invoices
+                        .Include(i => i.Customer)
+                        .Include(i => i.InvoiceLines)
+                        .ThenInclude(il => il.Product)
+                        .Select(i => new InvoiceDisplay
+                        {
+                            ID = i.ID,
+                            InvoiceDate = i.InvoiceDate,
+                            InvoiceDueDate = i.InvoiceDueDate,
+                            PaymentStatus = i.PaymentStatus ? "Paid" : "Not Paid",
+                            InvoiceTotal = i.InvoiceTotal,
+                            WorkDescription = i.WorkDescription,
+                            CustomerName = i.Customer != null ? i.Customer.Name : "not set",
+                            CustomerAddress = i.Customer != null ? i.Customer.Address : "not set",
+                            InvoiceLines = i.InvoiceLines.Select(il => new InvoiceLineDisplay
+                            {
+                                ID = il.ID,
+                                Amount = il.Amount,
+                                LineTotal = il.LineTotal,
+                                ProductName = il.Product != null ? il.Product.Name : "Unknown Product",
+                                ProductUnit = il.Product != null ? il.Product.Unit : "N/A"
+                            }).ToList()
+                        })
+                        .ToList();
+                    return invoices;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching invoice data: {ex}");
+                return [];
+            }
+        }
+
     }
 }

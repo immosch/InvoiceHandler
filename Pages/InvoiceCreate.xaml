@@ -137,7 +137,7 @@
                     <TextBlock Grid.Column="1" Text="Product" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Text="Qty" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="3" Text="Price per Unit" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="Total amount" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="Total" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Border>
 
@@ -183,7 +183,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Cursor="Hand" Click="PlusButton_Click">
+                    <Button HorizontalAlignment="Center" BorderThickness="0" Background="Transparent" Cursor="Hand" Click="AddButton_Click">
                         <Button.Content>
                             <Grid>
                                 <Image Source="/Assets/Icons/plus_16px.png" Visibility="Visible"/>

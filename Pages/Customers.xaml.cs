@@ -1,28 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+using InvoiceHandler.Data;
 
 namespace InvoiceHandler.Pages
 {
-    /// <summary>
-    /// Interaction logic for Customers.xaml
-    /// </summary>
     public partial class Customers : UserControl
     {
+        public List<Customer> CustomersList { get; set; } = [];
+        public int nextCustID { get; set; }
+
         public Customers()
         {
             InitializeComponent();
+            DataContext = this;
+            LoadCustomerData();
+        }
+
+        private void LoadCustomerData()
+        {
+            CustomersList = dbActions.GetAllCustomers();
+            nextCustID = CustomersList.Count + 1;
+        }
+
+        private void CreateCustBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

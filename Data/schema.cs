@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InvoiceHandler.Data
 {
+    #region DATABASE SCHEMA
     public class Invoice
     {
         public const string InvoicerName = "Rakennus Oy";
@@ -28,6 +29,7 @@ namespace InvoiceHandler.Data
         public int CustomerID { get; set; } // foreign key
 
         public Customer? Customer { get; set; }
+        public ICollection<InvoiceLine> InvoiceLines { get; set; }
 
         public Invoice(DateOnly iDate,  DateOnly iDueDate, bool status, double iTotal, string workdesc, int custID)
         {
@@ -112,8 +114,9 @@ namespace InvoiceHandler.Data
         }
 
         public InvoiceLine() { }
-
     }
+    #endregion
+
 
     public class RevenueData
     {
@@ -121,5 +124,28 @@ namespace InvoiceHandler.Data
         public double TotalRevenue { get; set; }
     }
 
+    public class InvoiceDisplay
+    {
+        public int ID { get; set; }
+        public DateOnly InvoiceDate { get; set; }
+        public DateOnly InvoiceDueDate { get; set; }
+        public string PaymentStatus { get; set; } = "not set";
+        public double InvoiceTotal { get; set; }
+        public string WorkDescription { get; set; } = "not set";
+        public string CustomerName { get; set; } = "not set";
+        public string CustomerAddress { get; set; } = "not set";
+        public List<InvoiceLineDisplay> InvoiceLines { get; set; } = [];
+
+    }
+
+    public class InvoiceLineDisplay
+    {
+        public int ID { get; set; }
+        public double Amount { get; set; }
+        public double LineTotal { get; set; }
+        public string ProductName { get; set; } = "not set";
+        public string ProductUnit { get; set; } = "not set";
+        public double ProductPricePerUnit { get; set; }
+    }
 }
 
