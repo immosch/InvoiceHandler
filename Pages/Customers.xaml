@@ -34,7 +34,7 @@
             BorderBrush="LightGray"
             FontSize="22"
             FontFamily="Arial Black"
-            MaxHeight="500"
+            MaxHeight="400"
             VerticalScrollBarVisibility="Auto"
             >
 
@@ -67,12 +67,12 @@
 
                     <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="2"/>
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="3">
-                        <TextBox x:Name="custNameInput" Text="Type customer name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                        <TextBox x:Name="custNameInput" GotFocus="custInput_GotFocus" LostFocus="custInput_LostFocus" Text="Type customer name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
                     <TextBlock Text="Address:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="4"/>
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="5">
-                        <TextBox x:Name="custAddressInput" Text="Type customer address..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                        <TextBox x:Name="custAddressInput" GotFocus="custInput_GotFocus" LostFocus="custInput_LostFocus" Text="Type customer address..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="6" Background="Gray">

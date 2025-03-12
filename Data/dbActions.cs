@@ -179,6 +179,24 @@ namespace InvoiceHandler.Data
             }
         }
 
+        public static bool CreateCustomer(Customer customer) // create customer
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating customer: {ex}");
+                return false;
+            }
+        }
+
         public static List<InvoiceDisplay> GetInvoiceDisplays()
         {
             try
