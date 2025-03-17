@@ -197,6 +197,62 @@ namespace InvoiceHandler.Data
             }
         }
 
+        public static bool RemoveCustomer(Customer customer) // remove customer
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Customers.Remove(customer);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error removing customer: {ex}");
+                return false;
+            }
+        }
+
+        public static bool CreateProduct(Product product) // create product
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating product: {ex}");
+                return false;
+            }
+        }
+
+        public static bool EditCustomer(Customer customer) // edit customer
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Customers.Update(customer);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error editing customer: {ex}");
+                return false;
+            }
+        }
+
+
+
         public static List<InvoiceDisplay> GetInvoiceDisplays()
         {
             try
