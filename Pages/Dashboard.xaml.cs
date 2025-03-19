@@ -15,7 +15,7 @@ namespace InvoiceHandler.Pages
         public int CustomerCount { get; set; }
         public double ProductsSold { get; set; }
         public SeriesCollection? Series { get; set; }
-        public string[]? Labels { get; set; }
+        public string[] Labels { get; set; } = [];
         public Func<double, string>? Yformatter { get; set; }
 
         public Dashboard()
@@ -47,8 +47,9 @@ namespace InvoiceHandler.Pages
                 {
                     Title = "Revenue:",
                     Values = new ChartValues<double>(monthlyRevenue),
-                    LineSmoothness = 0.5,
+                    LineSmoothness = 1,
                     PointGeometry = DefaultGeometries.Circle,
+                    StrokeThickness = 2,
                     PointGeometrySize = 10,
                     Stroke = Brushes.Red,
                     Fill = Brushes.Transparent

@@ -91,39 +91,6 @@ namespace InvoiceHandler.Pages
                 return;
             }
         }
-
-        private void RemoveCustBtn_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (IsRemovePlaceholderText)
-            {
-                MessageBox.Show("Please fill in the customer ID.");
-                return;
-            }
-
-            int id = int.Parse(custIdRemoveInput.Text);
-
-            var customer = CustomersList.FirstOrDefault(c => c.ID == id);
-
-            if (customer != null)
-            {
-                if (dbActions.RemoveCustomer(customer))
-                {
-                    MessageBox.Show("Customer removed successfully.");
-                    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-                    mainWindow.mainContent.Content = new Customers();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to remove customer.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Customer not found.");
-                return;
-            }
-        }
-
         private void custInput_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             int index = (sender == custNameInput) ? 0 : 1;
@@ -178,6 +145,14 @@ namespace InvoiceHandler.Pages
                 {
                     tb.Text = text;
                     IsEditPlaceholderText[index] = true;
+
+                    if (sender == custIdEditInput)
+                    {
+                        custNameEditInput.Text = "Type new name...";
+                        custAddressEditInput.Text = "Type new address...";
+                        custNameEditInput.IsEnabled = false;
+                        custAddressEditInput.IsEnabled = false;
+                    }
                 }
             }
 
@@ -189,7 +164,9 @@ namespace InvoiceHandler.Pages
                     if (customer != null)
                     {
                         custNameEditInput.Text = customer.Name;
+                        custNameEditInput.IsEnabled = true;
                         custAddressEditInput.Text = customer.Address;
+                        custAddressEditInput.IsEnabled = true;
                         IsEditPlaceholderText = [false, false, false];
                     }
                     else
@@ -200,50 +177,6 @@ namespace InvoiceHandler.Pages
                 else
                 {
                     if (!IsEditPlaceholderText[0]) MessageBox.Show("Invalid customer ID");
-                }
-            }
-
-        }
-
-        private void custRemoveInput_GotFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (sender is TextBox tb)
-            {
-                if (IsRemovePlaceholderText)
-                {
-                    custIdRemoveInput.Text = "";
-                    IsRemovePlaceholderText = false;
-                }
-            }
-        }
-
-        private void custRemoveInput_LostFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (sender is TextBox tb)
-            {
-                if (string.IsNullOrWhiteSpace(tb.Text))
-                {
-                    custIdRemoveInput.Text = "Type customer ID...";
-                    IsRemovePlaceholderText = true;
-                }
-            }
-
-            if (sender == custIdRemoveInput)
-            {
-                if (int.TryParse(custIdRemoveInput.Text, out int id))
-                {
-                    if (CustomersList.Any(c => c.ID == id))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Customer not found.");
-                    }
-                }
-                else
-                {
-                    if (!IsRemovePlaceholderText) MessageBox.Show("Invalid customer ID");
                 }
             }
         }

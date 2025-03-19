@@ -7,9 +7,11 @@ namespace InvoiceHandler.Pages
     public partial class searchInvoice : UserControl
     {
         public ObservableCollection<InvoiceDisplay> Displays { get; set; } = [];
-        public bool IsPlaceholdertext { get; set; } = true;
+        public bool IsPlaceholdertext = true;
+        public bool IsPlaceholdertextId = true;
         public bool IsMultipleSearches { get; set; } = false;
         private List<InvoiceDisplay> placeholder = [];
+        private List<Invoice> invoices = [];
 
         public searchInvoice()
         {
@@ -21,74 +23,133 @@ namespace InvoiceHandler.Pages
         private void LoadData()
         {
             placeholder = dbActions.GetInvoiceDisplays();
-            Displays = new ObservableCollection<InvoiceDisplay>(placeholder); 
+            Displays = new ObservableCollection<InvoiceDisplay>(placeholder);
+            invoices = dbActions.GetInvoices();
         }
 
-        private void searchTxt_GotFocus(object sender, RoutedEventArgs e)
+        private void EditInvBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (searchTxt.Text == "You can search using invoice ID or company name...")
+            if (IsPlaceholdertextId)
             {
-                searchTxt.Text = "";
-                IsPlaceholdertext = false;
+                MessageBox.Show("Please enter an invoice ID.");
+                return;
             }
-        }
 
-        private void searchTxt_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (searchTxt.Text == "")
+            if (int.TryParse(invIdInput.Text, out int id))
             {
-                searchTxt.Text = "You can search using invoice ID or company name...";
-                Displays.Clear();
-                foreach (var il in placeholder)
-                {
-                    Displays.Add(il);
-                }
-                IsPlaceholdertext = true;
-            }
-        }
+                var invoice = invoices.FirstOrDefault(i => i.ID == id);
 
-        private void searchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsPlaceholdertext)
-            {
-                if (IsMultipleSearches)
+                if (invoice != null)
                 {
-                    Displays.Clear();
-                    foreach (var il in placeholder)
-                    {
-                        Displays.Add(il);
-                    }
-                }
+                    invoice.PaymentStatus = true;
 
-                if (int.TryParse(searchTxt.Text, out int id))
-                {
-                    var filteredDisplays = Displays.Where(i => i.ID == id).ToList();
-                    Displays.Clear();
-                    foreach(var fd in filteredDisplays)
+                    if (dbActions.EditInvoice(invoice))
                     {
-                        Displays.Add(fd);
+                        MessageBox.Show("Invoice payment status updated successfully.");
+                        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                        Invoices invoices = (Invoices)mainWindow.mainContent.Content;
+                        invoices.invoiceContent.Content = new searchInvoice();
+
                     }
-                    IsMultipleSearches = true;
+                    else
+                    {
+                        MessageBox.Show("Failed to edit invoice.");
+                    }
                 }
                 else
                 {
-                    var filteredDisplays = Displays.Where(i => i.CustomerName.ToLower().Contains(searchTxt.Text.ToLower())).ToList();
-                    Displays.Clear();
-                    foreach (var fd in filteredDisplays)
-                    {
-                        Displays.Add(fd);
-                    }
-                    IsMultipleSearches = true;
+                    MessageBox.Show("Invoice not found.");
                 }
             }
             else
             {
-                if (IsMultipleSearches)
+                MessageBox.Show("Please enter a valid invoice ID.");
+            }
+        }
+
+        private void Txt_GotFocus(object sender, RoutedEventArgs e)
+        {          
+            if (sender == searchTxt && IsPlaceholdertext) 
+            {
+                searchTxt.Text = "";
+                IsPlaceholdertext = false;
+            }
+            else if (sender == invIdInput && IsPlaceholdertextId)
+            {
+                invIdInput.Text = "";
+                IsPlaceholdertextId = false;
+            }
+        }
+
+        private void Txt_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string text = (sender == searchTxt) ? "You can search using invoice ID or company name..." : "Enter invoice ID...";
+
+            if (sender == searchTxt)
+            {
+                if (string.IsNullOrWhiteSpace(searchTxt.Text))
                 {
+                    searchTxt.Text = text;
+                    IsPlaceholdertext = true;
+                    Displays.Clear();
+                    foreach (var inv in placeholder)
+                    {
+                        Displays.Add(inv);
+                    }
+                }
+            }
+            else if (sender == invIdInput)
+            {
+                if (string.IsNullOrWhiteSpace(invIdInput.Text))
+                {
+                    invIdInput.Text = text;
+                    IsPlaceholdertextId = true;
+                }
+
+
+            }
+        }
+
+        private void searchTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (!IsPlaceholdertext)
+            {
+                if (string.IsNullOrWhiteSpace(searchTxt.Text))
+                {
+                    Displays.Clear();
+                    foreach (var inv in placeholder)
+                    {
+                        Displays.Add(inv);
+                    }
                     return;
                 }
-                MessageBox.Show("Please enter a search term.");
-                return;
+
+                List<InvoiceDisplay> filteredInvoices = [];
+
+                if (int.TryParse(searchTxt.Text, out int id))
+                {
+                    filteredInvoices = placeholder.Where(i => i.ID == id).ToList();
+                }
+                else
+                {
+                    filteredInvoices = placeholder.Where(i => i.CustomerName.ToLower().Contains(searchTxt.Text.ToLower())).ToList();
+                }
+
+                Displays.Clear();
+                foreach (var inv in filteredInvoices)
+                {
+                    Displays.Add(inv);
+                }
+                IsMultipleSearches = true;
+            }
+            else
+            {
+                Displays.Clear();
+                foreach (var inv in placeholder)
+                {
+                    Displays.Add(inv);
+                }
             }
         }
     }

@@ -1,28 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using InvoiceHandler.Data;
 
 namespace InvoiceHandler.Pages
 {
-    /// <summary>
-    /// Interaction logic for Products.xaml
-    /// </summary>
     public partial class Products : UserControl
     {
+        public List<Product> productList { get; set; } = [];
+        public int nextProdID { get; set; }
+
         public Products()
         {
             InitializeComponent();
+            DataContext = this;
+            LoadProductData();
+        }
+
+        private void LoadProductData()
+        {
+            productList = dbActions.GetProducts();
+            nextProdID = productList.Count + 1;
+        }
+
+        private void CreateProdBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditCustBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Input_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Input_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

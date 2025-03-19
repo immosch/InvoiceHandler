@@ -155,6 +155,22 @@ namespace InvoiceHandler.Data
             }
         }
 
+        public static List<Invoice> GetInvoices() // fetch all invoices
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    return db.Invoices.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching invoices data: {ex}");
+                return [];
+            }
+        }
+
         public static bool CreateInvoice(Invoice invoice, List<InvoiceLine> invoiceLines) // create invoice
         {
             try
@@ -197,24 +213,6 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static bool RemoveCustomer(Customer customer) // remove customer
-        {
-            try
-            {
-                using (var db = new InvoiceDbContext())
-                {
-                    db.Customers.Remove(customer);
-                    db.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error removing customer: {ex}");
-                return false;
-            }
-        }
-
         public static bool CreateProduct(Product product) // create product
         {
             try
@@ -251,7 +249,23 @@ namespace InvoiceHandler.Data
             }
         }
 
-
+        public static bool EditInvoice(Invoice invoice) // edit product
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Invoices.Update(invoice);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error editing invoice: {ex}");
+                return false;
+            }
+        }
 
         public static List<InvoiceDisplay> GetInvoiceDisplays()
         {

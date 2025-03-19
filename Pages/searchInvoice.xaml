@@ -15,12 +15,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
             <!-- search container -->
@@ -32,14 +32,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Image x:Name="searchImg" Source="/Assets/Icons/search_16px.png"/>
-                    <TextBox x:Name="searchTxt" GotFocus="searchTxt_GotFocus" LostFocus="searchTxt_LostFocus" Grid.Column="1" Background="Transparent" BorderThickness="0" Text="You can search using invoice ID or company name..." Margin="24,0,0,0" FontSize="22" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="searchTxt" GotFocus="Txt_GotFocus" LostFocus="Txt_LostFocus" TextChanged="searchTxt_TextChanged" Grid.Column="1" Background="Transparent" BorderThickness="0" Text="You can search using invoice ID or company name..." Margin="24,0,0,0" FontSize="22" VerticalContentAlignment="Center"/>
                 </Grid>
             </Border>
 
-            <!-- search button -->
-            <Border Grid.Column="1" Margin="12" BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Background="Gray">
-                <Button x:Name="searchBtn" Style="{StaticResource grayBtn}" Content="SEARCH" Click="searchBtn_Click"/>
-            </Border>
         </Grid>
 
         <!-- Invoice display datagrid -->
@@ -57,6 +53,8 @@
                   CanUserDeleteRows="False"
                   IsReadOnly="True"
                   RowDetailsVisibilityMode="Visible"
+                  MaxHeight="600"
+                  VerticalScrollBarVisibility="Auto"
                   >
 
             <DataGrid.Columns>
@@ -91,5 +89,29 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+
+        <Grid Grid.Row="5">
+            <Separator VerticalAlignment="Top" Margin="25,0,25,0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Change Invoice status to paid:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center"/>
+                <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1">
+                    <TextBox x:Name="invIdInput" Text="Type invoice ID..." GotFocus="Txt_GotFocus" LostFocus="Txt_LostFocus" Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                </Border>
+ 
+
+                <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="6" Background="Gray">
+                    <Button Style="{StaticResource grayBtn}" Content="EDIT" Click="EditInvBtn_Click"/>
+                </Border>
+            </Grid>
+            <Separator VerticalAlignment="Bottom" Margin="25,0,25,0"/>
+        </Grid>
+
+
     </Grid>
 </UserControl>

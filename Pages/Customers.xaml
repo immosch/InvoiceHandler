@@ -106,12 +106,12 @@
 
                     <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="2"/>
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="3">
-                        <TextBox x:Name="custNameEditInput" GotFocus="custEditInput_GotFocus" LostFocus="custEditInput_LostFocus" Text="Type new name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                        <TextBox x:Name="custNameEditInput" IsEnabled="False" GotFocus="custEditInput_GotFocus" LostFocus="custEditInput_LostFocus" Text="Type new name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
                     <TextBlock Text="Address:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="4"/>
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="5">
-                        <TextBox x:Name="custAddressEditInput" GotFocus="custEditInput_GotFocus" LostFocus="custEditInput_LostFocus" Text="Type new address..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
+                        <TextBox x:Name="custAddressEditInput" IsEnabled="False" GotFocus="custEditInput_GotFocus" LostFocus="custEditInput_LostFocus" Text="Type new address..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
                     <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="6" Background="Gray">
