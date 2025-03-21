@@ -249,7 +249,7 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static bool EditInvoice(Invoice invoice) // edit product
+        public static bool EditInvoice(Invoice invoice) // edit invoice
         {
             try
             {
@@ -263,6 +263,24 @@ namespace InvoiceHandler.Data
             catch (Exception ex)
             {
                 MessageBox.Show($"Error editing invoice: {ex}");
+                return false;
+            }
+        }
+
+        public static bool EditProduct(Product product) // edit product
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    db.Products.Update(product);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error editing product: {ex}");
                 return false;
             }
         }

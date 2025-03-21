@@ -180,5 +180,13 @@ namespace InvoiceHandler.Pages
                 }
             }
         }
+
+        private void custIdEditInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                custEditInput_LostFocus(sender, e);
+            }
+        }
     }
 }
