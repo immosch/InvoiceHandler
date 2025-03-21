@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Permissions;
 using System.Windows;
 
 namespace InvoiceHandler.Data
@@ -17,7 +16,7 @@ namespace InvoiceHandler.Data
                     var invoiceCount = db.Invoices
                         .Count();
                     return invoiceCount;
-                }
+                }               
             }
             catch (Exception ex)
             {
@@ -95,7 +94,7 @@ namespace InvoiceHandler.Data
             }
         }
 
-        public static List<RevenueData> GetRevenueData() // revenue data grouped by month query
+        public static List<RevenueData> GetRevenueData() // revenue data grouped by month
         {
             try
             {
@@ -287,6 +286,7 @@ namespace InvoiceHandler.Data
 
         public static List<InvoiceDisplay> GetInvoiceDisplays()
         {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
             try
             {
                 using (var db = new InvoiceDbContext())
@@ -294,14 +294,14 @@ namespace InvoiceHandler.Data
                     var invoices = db.Invoices
                         .Include(i => i.Customer)
                         .Include(i => i.InvoiceLines)
-                        .ThenInclude(il => il.Product)
+                            .ThenInclude(il => il.Product)
                         .Select(i => new InvoiceDisplay
                         {
                             ID = i.ID,
-                            InvoiceDate = i.InvoiceDate,
-                            InvoiceDueDate = i.InvoiceDueDate,
-                            PaymentStatus = i.PaymentStatus ? "Paid" : "Not Paid",
-                            InvoiceTotal = i.InvoiceTotal,
+                            InvoiceDate = i.InvoiceDate.ToString("dd/MM/yyyy"),
+                            InvoiceDueDate = i.InvoiceDueDate.ToString("dd/MM/yyyy"),
+                            PaymentStatus = i.PaymentStatus ? "Paid" : (currentDate > i.InvoiceDueDate) ? "Late" : "Not Paid",
+                            InvoiceTotal = i.InvoiceTotal.ToString() + "$",
                             WorkDescription = i.WorkDescription,
                             CustomerName = i.Customer != null ? i.Customer.Name : "not set",
                             CustomerAddress = i.Customer != null ? i.Customer.Address : "not set",
@@ -309,7 +309,7 @@ namespace InvoiceHandler.Data
                             {
                                 ID = il.ID,
                                 Amount = il.Amount,
-                                LineTotal = il.LineTotal,
+                                LineTotal = il.LineTotal.ToString() + "$",
                                 ProductName = il.Product != null ? il.Product.Name : "Unknown Product",
                                 ProductUnit = il.Product != null ? il.Product.Unit : "N/A"
                             }).ToList()

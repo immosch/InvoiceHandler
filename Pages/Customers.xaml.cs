@@ -25,6 +25,7 @@ namespace InvoiceHandler.Pages
             nextCustID = CustomersList.Count + 1;
         }
 
+        // create a new customer
         private void CreateCustBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (IsPlaceholderText.Any(x => x))
@@ -57,6 +58,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // edit customer details
         private void EditCustBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (IsEditPlaceholderText.Any(x => x))
@@ -91,6 +93,7 @@ namespace InvoiceHandler.Pages
                 return;
             }
         }
+
         private void custInput_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             int index = (sender == custNameInput) ? 0 : 1;
@@ -181,6 +184,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // if enter key is pressed, trigger the LostFocus event
         private void custIdEditInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)

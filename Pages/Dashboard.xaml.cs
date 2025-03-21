@@ -47,11 +47,10 @@ namespace InvoiceHandler.Pages
                 {
                     Title = "Revenue:",
                     Values = new ChartValues<double>(monthlyRevenue),
-                    LineSmoothness = 1,
+                    LineSmoothness = 0.5,
                     PointGeometry = DefaultGeometries.Circle,
-                    StrokeThickness = 2,
                     PointGeometrySize = 10,
-                    Stroke = Brushes.Red,
+                    Stroke = Brushes.Black,
                     Fill = Brushes.Transparent
                 }
             ];
@@ -93,6 +92,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // Change the size of the left menu based on the window size.
         private void Dashboard_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Width < 900)

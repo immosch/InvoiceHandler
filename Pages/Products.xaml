@@ -17,12 +17,12 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="75"/>
+                <RowDefinition Height="225"/>
                 <RowDefinition Height="75"/>
-                <RowDefinition Height="75"/>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="225"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="All Products:" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="All Products:" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="26,0,0,0"/>
 
             <DataGrid 
         Grid.Row="1" 
@@ -48,15 +48,12 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock Text="Create new product:" Grid.Row="2" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Create new product:" Grid.Row="2" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="26,0,0,0"/>
 
             <Grid Grid.Row="3">
                 <Separator VerticalAlignment="Top" Margin="25,0,25,0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -65,42 +62,45 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="ID:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="ID:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="2">
                         <TextBox Text="{Binding nextProdID}" Padding="5" IsReadOnly="True" IsEnabled="False" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="22" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="2"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="3">
+                    <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="3"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="4">
                         <TextBox x:Name="prodCreateNameInput" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="4"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="5">
+                    <TextBlock Text="Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="2" Grid.Row="1">
                         <TextBox x:Name="prodCreateUnitInput" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type unit..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Price per unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="6"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="7">
+                    <TextBlock Text="Price per unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="4" Grid.Row="1">
                         <TextBox x:Name="prodCreatePPUInput" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type ppu..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="8" Background="Gray">
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1" Grid.ColumnSpan="4" Background="Gray" Grid.Row="2">
                         <Button Style="{StaticResource grayBtn}" Content="CREATE" Click="CreateProdBtn_Click"/>
                     </Border>
                 </Grid>
                 <Separator VerticalAlignment="Bottom" Margin="25,0,25,0"/>
             </Grid>
 
-            <TextBlock Text="Edit Product details:" Grid.Row="4" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Edit Product details:" Grid.Row="4" FontSize="22" FontFamily="Arial Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="26,0,0,0"/>
 
             <Grid Grid.Row="5">
                 <Separator VerticalAlignment="Top" Margin="25,0,25,0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -109,27 +109,33 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="ID:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="ID:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="2">
                         <TextBox x:Name="prodIdEditInput" Text="Type product ID..." KeyDown="prodIdEditInput_KeyDown" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="2"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="3">
+                    <TextBlock Text="Name:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="3"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="4">
                         <TextBox x:Name="prodNameEditInput" IsEnabled="False" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type new name..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="4"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="5">
+                    <TextBlock Text="Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="2" Grid.Row="1">
                         <TextBox x:Name="prodUnitEditInput" IsEnabled="False" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type new unit..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <TextBlock Text="Price per Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="6"/>
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="7">
+                    <TextBlock Text="Price per Unit:" Margin="12,0,0,0" FontSize="22" FontFamily="Arial Black" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"/>
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="4" Grid.Row="1">
                         <TextBox x:Name="prodPPUEditInput" IsEnabled="False" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus" Text="Type new ppu..." Padding="5" VerticalAlignment="Center" Margin="0,0,12,0" BorderThickness="0" Background="Transparent" FontSize="16" FontFamily="Arial Black"/>
                     </Border>
 
-                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="8" Background="Gray">
+                    <Border BorderBrush="Gray" Margin="12,12" BorderThickness="1" CornerRadius="8" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Background="Gray">
                         <Button Style="{StaticResource grayBtn}" Content="EDIT" Click="EditCustBtn_Click"/>
                     </Border>
                 </Grid>

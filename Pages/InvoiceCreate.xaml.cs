@@ -225,6 +225,11 @@ namespace InvoiceHandler.Pages
                             }
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Please select a product!");
+                        return;
+                    }
                 }
             }
             #endregion
@@ -254,10 +259,8 @@ namespace InvoiceHandler.Pages
             {
                 MessageBox.Show("Invoice created successfully!");
 
-                if (Application.Current.MainWindow is MainWindow mainWindow) // refresh view to reset invoice selection
-                {
-                    mainWindow.mainContent.Content = new Invoices();
-                }
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.mainContent.Content = new Invoices();
             }
             else
             {

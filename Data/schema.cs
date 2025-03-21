@@ -127,10 +127,10 @@ namespace InvoiceHandler.Data
     public class InvoiceDisplay
     {
         public int ID { get; set; }
-        public DateOnly InvoiceDate { get; set; }
-        public DateOnly InvoiceDueDate { get; set; }
+        public string InvoiceDate { get; set; } = "not set";
+        public string InvoiceDueDate { get; set; } = "not set";
         public string PaymentStatus { get; set; } = "not set";
-        public double InvoiceTotal { get; set; }
+        public string InvoiceTotal { get; set; } = "not set";
         public string WorkDescription { get; set; } = "not set";
         public string CustomerName { get; set; } = "not set";
         public string CustomerAddress { get; set; } = "not set";
@@ -142,7 +142,7 @@ namespace InvoiceHandler.Data
     {
         public int ID { get; set; }
         public double Amount { get; set; }
-        public double LineTotal { get; set; }
+        public string LineTotal { get; set; } = "not set";
         public string ProductName { get; set; } = "not set";
         public string ProductUnit { get; set; } = "not set";
         public double ProductPricePerUnit { get; set; }
