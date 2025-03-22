@@ -25,6 +25,24 @@ namespace InvoiceHandler.Data
             }
         }
 
+        public static int GetNextInvoiceID() // next invoice ID query
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    var nextID = db.Invoices
+                        .Max(i => i.ID);
+                    return nextID + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching next invoice ID: {ex}");
+                return 0;
+            }
+        }
+
         public static double GetTotalRevenue() // total revenue query
         {
             try
@@ -91,50 +109,6 @@ namespace InvoiceHandler.Data
             {
                 MessageBox.Show($"Error fetching Customer list: {ex}");
                 return [];
-            }
-        }
-
-        public static List<RevenueData> GetRevenueData() // revenue data grouped by month
-        {
-            try
-            {
-                using (var db = new InvoiceDbContext())
-                {
-                    var revenueData = db.Invoices
-                        .Where(i => i.InvoiceDate.Year == currentYear)
-                        .GroupBy(i => i.InvoiceDate.Month)
-                        .Select(l => new RevenueData
-                        {
-                            Month = l.Key,
-                            TotalRevenue = l.Sum(i => i.InvoiceTotal)
-                        })
-                        .ToList();
-
-                    return revenueData;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error fetching revenue chart data: {ex}");
-                return [];
-            }
-        }
-
-        public static int GetNextInvoiceID() // next invoice ID query
-        {
-            try
-            {
-                using (var db = new InvoiceDbContext())
-                {
-                    var nextID = db.Invoices
-                        .Max(i => i.ID);
-                    return nextID + 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error fetching next invoice ID: {ex}");
-                return 0;
             }
         }
 
@@ -284,6 +258,32 @@ namespace InvoiceHandler.Data
             }
         }
 
+        public static List<RevenueData> GetRevenueData() // revenue data grouped by month
+        {
+            try
+            {
+                using (var db = new InvoiceDbContext())
+                {
+                    var revenueData = db.Invoices
+                        .Where(i => i.InvoiceDate.Year == currentYear)
+                        .GroupBy(i => i.InvoiceDate.Month)
+                        .Select(l => new RevenueData
+                        {
+                            Month = l.Key,
+                            TotalRevenue = l.Sum(i => i.InvoiceTotal)
+                        })
+                        .ToList();
+
+                    return revenueData;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching revenue chart data: {ex}");
+                return [];
+            }
+        }
+
         public static List<InvoiceDisplay> GetInvoiceDisplays()
         {
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
@@ -301,7 +301,7 @@ namespace InvoiceHandler.Data
                             InvoiceDate = i.InvoiceDate.ToString("dd/MM/yyyy"),
                             InvoiceDueDate = i.InvoiceDueDate.ToString("dd/MM/yyyy"),
                             PaymentStatus = i.PaymentStatus ? "Paid" : (currentDate > i.InvoiceDueDate) ? "Late" : "Not Paid",
-                            InvoiceTotal = i.InvoiceTotal.ToString() + "$",
+                            InvoiceTotal = i.InvoiceTotal.ToString("C", new System.Globalization.CultureInfo("en-US")),
                             WorkDescription = i.WorkDescription,
                             CustomerName = i.Customer != null ? i.Customer.Name : "not set",
                             CustomerAddress = i.Customer != null ? i.Customer.Address : "not set",
@@ -309,7 +309,7 @@ namespace InvoiceHandler.Data
                             {
                                 ID = il.ID,
                                 Amount = il.Amount,
-                                LineTotal = il.LineTotal.ToString() + "$",
+                                LineTotal = il.LineTotal.ToString("C", new System.Globalization.CultureInfo("en-US")),
                                 ProductName = il.Product != null ? il.Product.Name : "Unknown Product",
                                 ProductUnit = il.Product != null ? il.Product.Unit : "N/A"
                             }).ToList()

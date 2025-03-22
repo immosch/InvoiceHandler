@@ -15,9 +15,6 @@
         <Grid x:Name="mainCont" Background="LightGray">
 
             <!-- layout -->
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="70"/>

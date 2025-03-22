@@ -4,16 +4,17 @@ using InvoiceHandler.Data;
 using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.Globalization;
 
 
 namespace InvoiceHandler.Pages
 {
     public partial class Dashboard : UserControl
     {
-        public int InvoiceCount { get; set; }
+        public string InvoiceCount { get; set; }
         public string TotalRevenue { get; set; } = "0$";
-        public int CustomerCount { get; set; }
-        public double ProductsSold { get; set; }
+        public string CustomerCount { get; set; }
+        public string ProductsSold { get; set; }
         public SeriesCollection? Series { get; set; }
         public string[] Labels { get; set; } = [];
         public Func<double, string>? Yformatter { get; set; }
@@ -28,10 +29,10 @@ namespace InvoiceHandler.Pages
         private void LoadDashboardData()
         {
             // dashboard statistics setup
-            InvoiceCount = dbActions.GetInvoiceCount();
-            TotalRevenue = dbActions.GetTotalRevenue().ToString() + "$";
-            CustomerCount = dbActions.GetCustomerCount();
-            ProductsSold = dbActions.GetProductsSold();
+            InvoiceCount = dbActions.GetInvoiceCount().ToString("N0");
+            TotalRevenue = dbActions.GetTotalRevenue().ToString("C", new System.Globalization.CultureInfo("en-US"));
+            CustomerCount = dbActions.GetCustomerCount().ToString("N0");
+            ProductsSold = dbActions.GetProductsSold().ToString("N0");
 
             // YTD revenue chart setup
             var revenueData = dbActions.GetRevenueData();

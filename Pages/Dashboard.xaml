@@ -102,8 +102,8 @@
                 <TextBlock Text="Total Revenue" FontSize="18" FontWeight="Bold" 
                     Foreground="#333333" FontFamily="Arial Black" Margin="5,0,5,5"/>
 
-                <TextBlock x:Name="totRev" Text="{Binding TotalRevenue}" FontSize="36" FontWeight="Bold" 
-                    Foreground="#333333" Margin="10,0,10,15"/>
+                <TextBlock x:Name="totRev" Text="{Binding TotalRevenue}" FontSize="22" FontWeight="Bold" 
+                    Foreground="#333333" Margin="10,0,10,33"/>
 
                 <Border BorderThickness="1" BorderBrush="#88e788" CornerRadius="8" 
                     Background="#88e788" Width="Auto" Height="40" Margin="10,0,10,5">

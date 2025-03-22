@@ -53,7 +53,6 @@
                   CanUserDeleteRows="False"
                   IsReadOnly="True"
                   RowDetailsVisibilityMode="Visible"
-                  MaxHeight="600"
                   VerticalScrollBarVisibility="Auto"
                   >
 

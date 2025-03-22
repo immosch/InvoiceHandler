@@ -26,7 +26,12 @@
 
         <!-- Left menu -->
         <Grid x:Name="leftMenu" Grid.Column="0" Background="#2b2c2e" Width="230">
-            
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
             <StackPanel Orientation="Vertical">
                 
                 <!-- Logo -->
@@ -75,6 +80,17 @@
                     </ToggleButton.Content>
                 </ToggleButton>
             </StackPanel>
+
+            <StackPanel x:Name="enviromentInfo" Orientation="Vertical" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Visible">
+                <TextBlock Text="{Binding Invoicer}" HorizontalAlignment="Center" Margin="5" Foreground="#92B9BD" FontWeight="Bold"/>
+                <TextBlock Text="{Binding InvoicerAddress}" HorizontalAlignment="Center" Margin="5" Foreground="#92B9BD" FontWeight="Bold"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5">
+                    <Run Text="{Binding DateDisplay}" Foreground="#92B9BD"/>
+                    <Run Text="{Binding TimeDisplay}" Foreground="#92B9BD"/>
+                    <Run Text="{Binding Version}" Foreground="#5A5A66"/>
+                </TextBlock>
+            </StackPanel>
+
         </Grid>
 
         <ContentControl x:Name="mainContent" Grid.Column="1">

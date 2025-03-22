@@ -24,6 +24,7 @@ namespace InvoiceHandler.Pages
             nextProdID = productList.Count + 1;
         }
 
+        // Create product button click event
         private void CreateProdBtn_Click(object sender, RoutedEventArgs e)
         {
             if (IsPlaceholderText.Any(x => x))
@@ -61,6 +62,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // Edit product button click event
         private void EditCustBtn_Click(object sender, RoutedEventArgs e)
         {
             if (IsPlaceholderTextEdit.Any(x => x))
@@ -109,6 +111,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // input field focus events
         private void Input_GotFocus(object sender, RoutedEventArgs e)
         {
             // Create product input fields
@@ -142,6 +145,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // input field lost focus events
         private void Input_LostFocus(object sender, RoutedEventArgs e)
         {
             // Create product input fields
@@ -217,6 +221,7 @@ namespace InvoiceHandler.Pages
             }
         }
 
+        // input field key down events
         private void prodIdEditInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
